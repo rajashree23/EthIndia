@@ -194,11 +194,18 @@ export default class HomePage extends React.Component {
                 <Button style={btn}>Home</Button>
                 <Button style={btn} onClick={() => {
                   this.setState({
-                    paymentDialog: true
+                    // paymentDialog: true
                   })
                 }}>
                   Get Roles
                   </Button>
+                  <Button style={btn} onClick={() => {
+                  this.setState({
+                    paymentDialog: true
+                  })
+                }}>
+                  Get Tokens
+                  </Button> 
                 <Button style={btn}>Profile</Button>
                 <Button style={btn}>GuideLines</Button>
                 <Button style={btn}>About</Button>
