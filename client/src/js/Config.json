@@ -1,0 +1,19 @@
+{
+    "network":"testnet",
+    "version": "v3",
+
+
+    "privateKey": "0xf9cb3dbc144977b326160a3302e54c5117b93a094116545102f6c1cc88cea7bb", 
+    "from": "0xD6aaCEd767524B1CAc368EC732dB37EC9dB268dB",
+    
+    "Ropsten_Erc20Address": "0xEc5C207897C4378658F52bCCCE0ea648D1f17D65",
+    "Matic_Erc20Address": "0xBc0AEe9f7b65fd3d8be30ba648e00dB5F734942b",
+    
+    "Ropsten_Erc721Address": "0x07d799252cf13c01f602779b4dce24f4e5b08bbd",
+    "Matic_Erc721Address": "0x8D5231e0B79edD9331e0CF0d4B9f3F30d05C47A5",
+
+    "Ropsten_WEthAddress": "0x7BdDd37621186f1382FD59e1cCAE0316F979a866",
+    "Matic_WEthAddress": "0x8567184E6F9b1B77f24AfF6168453419AD22f90e",
+
+    "value": ""
+}
