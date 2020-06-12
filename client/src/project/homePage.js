@@ -70,7 +70,26 @@ export default class HomePage extends React.Component {
     // } else {
     //   window.alert('Smart contract not deployed to detected network.')
     // }
-
+  
+    
+      var role=await this.state.rolescontract.methods.verifyPublisher().call();
+      if(role===true)
+        this.setState({roleValue:"publisher"});
+      else
+      {
+        role=await this.state.rolescontract.methods.verifyVoter().call();
+        if(role===true)
+         this.setState({roleValue:"voter"});
+        else
+         {
+          role=await this.state.rolescontract.methods.verifySolver().call();
+         if(role===true)
+           this.setState({roleValue:"solver"});
+         }
+      }
+     
+    
+  
 
     var questions = [];
     const len = await this.state.contract.methods.getQuestionListLength().call();
@@ -135,8 +154,8 @@ export default class HomePage extends React.Component {
 
     }
   }
-
-
+   
+ 
   captureFile = (event) => {
     event.preventDefault()
     const file = event.target.files[0]
@@ -307,7 +326,7 @@ export default class HomePage extends React.Component {
               Close
           </Button>
             <Button
-              onClick={() => { this.setState({ paymentDialog: false }) }}
+              onClick={this.getRoles()}
               color="primary"
               autoFocus
               variant="outlined"
