@@ -163,7 +163,7 @@ export default class HomePage extends React.Component {
         console.log('redirecting');
         window.alert('Question added')
         return window.location.reload();
-        this.setState({})
+        // this.setState({})
 
       })
       if (error)
