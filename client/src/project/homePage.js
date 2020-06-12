@@ -1,6 +1,6 @@
 import React from "react";
 import Web3 from "web3";
-
+import {regPublisherVerify,regSolverVerify,regVoterVerify} from "../js/index";
 import ipfs from "../js/ipfshttp";
 import {ipfsABI} from "../js/IPFS";
 import {rolesABI} from "../js/roles";
@@ -77,17 +77,17 @@ export default class HomePage extends React.Component {
     
       var role=await this.state.rolescontract.methods.verifyPublisher().call();
       if(role===true)
-        this.setState({roleValue:"publisher"});
+        this.setState({roleValue:"Publisher"});
       else
       {
         role=await this.state.rolescontract.methods.verifyVoter().call();
         if(role===true)
-         this.setState({roleValue:"voter"});
+         this.setState({roleValue:"Voter"});
         else
          {
           role=await this.state.rolescontract.methods.verifySolver().call();
          if(role===true)
-           this.setState({roleValue:"solver"});
+           this.setState({roleValue:"Solver"});
          }
       }
      
