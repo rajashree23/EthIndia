@@ -242,7 +242,7 @@ export default class HomePage extends React.Component {
                     paymentDialog: true
                   })
                 }}>
-                  Get Tokens
+                  Transfer To Matic
                   </Button> 
                 <Button style={btn}>Profile</Button>
                 <Button style={btn}>GuideLines</Button>
