@@ -1,7 +1,8 @@
 import React from "react";
 import Web3 from "web3";
 import IPFS from '../contracts/IPFS.json';
-import ipfs from "../js/ipfs";
+import ipfs from "../js/ipfshttp";
+import IPFS from "../js/IPFS";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -56,16 +57,18 @@ export default class HomePage extends React.Component {
     // Load account
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
+    const contract = new web3.eth.Contract(IPFS,0x7993d027e47b2d2377543c305d9114bd3959845f)
+    this.setState({ contract })
     const networkId = await web3.eth.net.getId()
     const networkData = IPFS.networks[networkId]
-    if (networkData) {
-      const contract = new web3.eth.Contract(IPFS.abi, networkData.address)
-      this.setState({ contract })
-      // const memeHash = await contract.methods.get().call()
-      // this.setState({ memeHash })
-    } else {
-      window.alert('Smart contract not deployed to detected network.')
-    }
+    // if (networkData) {
+    //   const contract = new web3.eth.Contract(IPFS.abi, 0x7993d027e47b2d2377543c305d9114bd3959845f)
+    //   this.setState({ contract })
+    //   // const memeHash = await contract.methods.get().call()
+    //   // this.setState({ memeHash })
+    // } else {
+    //   window.alert('Smart contract not deployed to detected network.')
+    // }
 
 
     var questions = [];

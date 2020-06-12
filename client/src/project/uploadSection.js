@@ -1,7 +1,7 @@
 import React from "react";
 import Web3 from "web3";
 import IPFS from '../contracts/IPFS.json';
-import ipfs from '../js/ipfs';
+import ipfs from '../js/ipfshttp';
 import {
   Button,
   IconButton,
