@@ -1,4 +1,4 @@
-const ipfsABI = [
+export const ipfsABI = [
 	{
 		"inputs": [
 			{
@@ -352,4 +352,3 @@ const ipfsABI = [
 	}
 ]
 
-module.exports(ipfsABI);
