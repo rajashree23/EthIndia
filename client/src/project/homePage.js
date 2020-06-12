@@ -323,19 +323,20 @@ export default class HomePage extends React.Component {
           </Grid>
           <DialogActions>
             <Button
-              onClick={() => { this.setState({ paymentDialog: false }) }}
+              onClick={() => { this.setState({ paymentDialog: false});
+               this.loadBlockchainData()  }}
               color="primary"
               variant="outlined"
             >
               Close
           </Button>
             <Button
-              onClick={this.getRoles()}
+              onClick={() => { this.setState({ paymentDialog: false }) }}
               color="primary"
               autoFocus
               variant="outlined"
             >
-              pay
+              Submit
           </Button>
           </DialogActions>
         </Dialog>
