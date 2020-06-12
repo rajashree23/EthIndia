@@ -159,6 +159,21 @@ export default class HomePage extends React.Component {
     }
   }
    
+  getRoles = () =>{
+    if(this.state.roleValue==="Publisher")
+    {
+      regPublisherVerify();
+    }
+    else if(this.state.roleValue==="Voter")
+     {
+      regVoterVerify();
+     }
+     else if(this.state.roleValue==="Voter")
+     { 
+       regSolverVerify();
+
+     }
+  }
  
   captureFile = (event) => {
     event.preventDefault()
@@ -331,7 +346,8 @@ export default class HomePage extends React.Component {
               Close
           </Button>
             <Button
-              onClick={() => { this.setState({ paymentDialog: false }) }}
+              onClick={() => { this.setState({ paymentDialog: false });
+                this.getRoles() }}
               color="primary"
               autoFocus
               variant="outlined"
