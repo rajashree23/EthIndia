@@ -128,12 +128,14 @@ export default class HomePage extends React.Component {
 
 
       var temp = {};
-      if (details[1] >= seconds) {
+      if (details[1] >=seconds) {
 
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
       }
       else {
-        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false }
+       
+        //send voting details and call for winning solver address
+        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result":"abcdlkjdwjeiu2193"}
       }
 
 
