@@ -3,16 +3,16 @@ const Network = require("@maticnetwork/meta/network");
 const Matic = require("@maticnetwork/maticjs").default;
 const config = require("./Config.json");
 //express requirement
-var express = require("express");
-var app = express();
+// var express = require("express");
+// var app = express();
 var bodyParser = require("body-parser");
 //Web3 and metamask
 const Web3 = require("web3");
 const MetaMaskConnector = require("node-metamask");
 const delay = require('delay');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json());
 
 //inject web3 into metamask
 const connector = new MetaMaskConnector({
@@ -300,29 +300,7 @@ async function remPub(culprit){
 */
 
 
-//routes
-app.get("/", (req, res) => {
-  console.log("Home Page");
-  res.render("index.ejs",{ balance: 0 });
-});
 
-app.post("/depEthtoTok", async (req,res)=>{
- tranEthtoTok(req.body.value)
-})
-
-app.get("/bal", async (req, res) => {
- const out = await checkBal()
-  res.render("index.ejs", { balance: out });
-});
-
-app.post("/addSolver",async(req,res)=>{
-  const out = await regSolverVerify();
-  console.log(out+ " from route")
-})
-
-app.listen(3000, () => {
-  console.log("App started at port 3000");
-});
 module.exports(regPublisherVerify,regSolverVerify,regVoterVerify);
 
 });
