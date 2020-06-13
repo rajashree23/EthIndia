@@ -2,31 +2,44 @@
 import Web3 from "web3";
 import { rolesABI } from "../js/roles";
 
-var bodyParser = require("body-parser");
+// var bodyParser = require("body-parser");
 //Web3 and metamask
-const MetaMaskConnector = require("node-metamask");
+//const MetaMaskConnector = require("node-metamask");
 
 const delay = require('delay');
 const Network = require("@maticnetwork/meta/network");
 const Matic = require("@maticnetwork/maticjs").default;
 const config = require("./Config.json");
+// const connector = new MetaMaskConnector({
+// 	port: 3333, // this is the default port
+// 	onConnect() {
+// 	  console.log("MetaMask client connected");
+// 	}, // Function to run when MetaMask is connected (optional)
+//   });
+//const Web3 = require("web3");
+export default async function regPublisherVerify(){
+    async function loadWeb3() {
+        if (window.ethereum) {
+          window.web3 = new Web3(window.ethereum)
+          await window.ethereum.enable()
+        }
+        else if (window.web3) {
+          window.web3 = new Web3(window.web3.currentProvider)
+        }
+        else {
+          window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+        }
+      }
+    
+loadWeb3();
 
-const connector = new MetaMaskConnector({
-	port: 3333, // this is the default port
-	onConnect() {
-	  console.log("MetaMask client connected");
-	}, // Function to run when MetaMask is connected (optional)
-  });
-
-connector.start().then(() => {
-
-const web3 = new Web3(connector.getProvider());
+//const web3 = new Web3(connector.getProvider());
 const contractAddress = "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe";
-const contract = new web3.eth.Contract(rolesABI, contractAddress);
+const contract = new window.web3.eth.Contract(rolesABI, contractAddress);
 
 const network = new Network(config.network, config.version); //network configuration
-const MaticNetwork = connector.getProvider();
-const MainNetwork = connector.getProvider();
+const MaticNetwork = window.web3.getProvider();
+const MainNetwork = window.web3.getProvider();
 
 const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
 const Matic_Erc20Address = config.Matic_Erc20Address;
@@ -50,7 +63,7 @@ await matic.setWallet(config.privateKey)
 }
 init();
 async function getAccount(){
-var account =await web3.eth.getAccounts()
+var account =await window.web3.eth.getAccounts()
 console.log(account.toString())
 return account.toString()
 }
@@ -75,9 +88,9 @@ else return false
 }
 
 
-  async function regPublisherVerify(){
-  const bal = await checkBal()
-    const fromAcc = await getAccount()
+async function reg(){
+  const bal = checkBal()
+    const fromAcc = getAccount()
     console.log(fromAcc)
     if(bal>=10000){
       const out = await tokenTransDeployer(10000/(10^8))//in matic network
@@ -95,7 +108,10 @@ else return false
     {
     console.log("Insufficient Balance to be Publisher")
     }
+}
 
-  }
+reg()
+
+
  
-})
+}

@@ -1,13 +1,14 @@
 import React from "react";
 import Web3 from "web3";
 //import {regPublisherVerify} from "../js/index";
-import regPublisherVerify from "../js/index2"
+//import regPublisherVerify from "../js/index2"
 import ipfs from "../js/ipfshttp";
 import {ipfsABI} from "../js/IPFS";
 import {rolesABI} from "../js/roles";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import regPublisherVerify from "../js/index3"
 
 import {
   Button,
@@ -29,6 +30,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 //var regPublisherVerify=require("../js/index")
+
+
 
 const btn = {
   color: "white"

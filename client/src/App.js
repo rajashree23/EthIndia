@@ -10,7 +10,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import HomePage from "./project/homePage";
+import HomePage from "./components/homePage";
 export default class App extends React.Component {
   render() {
     return (
