@@ -144,13 +144,18 @@ export default class HomePage extends React.Component {
 
 
     }
-    this.setState({ questions: questions });
+    this.setState({questions:questions});
+    var abc = this.state.finalobj;
+    abc.cardofquestion = questions;
+    abc.type = this.state.roleValue;
+    this.setState({finalobj: abc});
+    console.log(this.state.finalobj);
 
   }
   constructor(props) {
     super(props);
     this.state = {
-      questions: [],
+      questions:[],
       rolescontract: null,
       ipfscontract:null,
       web3: null,
@@ -160,7 +165,8 @@ export default class HomePage extends React.Component {
       postReward: "",
       buffer: null,
       account: null,
-      yes: "false"
+      yes: "false",
+      finalobj:{cardofquestion:[],type:""}
 
     }
   }
