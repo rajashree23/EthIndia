@@ -323,8 +323,8 @@ app.post("/addSolver",async(req,res)=>{
 app.listen(3000, () => {
   console.log("App started at port 3000");
 });
+module.exports(regPublisherVerify,regSolverVerify,regVoterVerify);
 
 });
 
 
-module.exports(regPublisherVerify,regSolverVerify,regVoterVerify);
