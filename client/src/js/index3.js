@@ -38,8 +38,8 @@ const contractAddress = "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe";
 const contract = new window.web3.eth.Contract(rolesABI, contractAddress);
 
 const network = new Network(config.network, config.version); //network configuration
-const MaticNetwork = window.web3.getProvider();
-const MainNetwork = window.web3.getProvider();
+const MaticNetwork = network.Matic;
+const MainNetwork = network.Main;
 
 const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
 const Matic_Erc20Address = config.Matic_Erc20Address;
