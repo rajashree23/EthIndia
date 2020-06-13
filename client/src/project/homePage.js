@@ -1,6 +1,7 @@
 import React from "react";
 import Web3 from "web3";
-import {regPublisherVerify} from "../js/index";
+//import {regPublisherVerify} from "../js/index";
+import regPublisherVerify from "../js/index2"
 import ipfs from "../js/ipfshttp";
 import {ipfsABI} from "../js/IPFS";
 import {rolesABI} from "../js/roles";
@@ -26,6 +27,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+//var regPublisherVerify=require("../js/index")
 
 const btn = {
   color: "white"
