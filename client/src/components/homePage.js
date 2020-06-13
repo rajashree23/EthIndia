@@ -8,7 +8,7 @@ import {rolesABI} from "../js/roles";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import regPublisherVerify from "../js/index3"
+// import regPublisherVerify from "../js/index3"
 
 import {
   Button,
@@ -177,7 +177,7 @@ export default class HomePage extends React.Component {
   getRoles = () =>{
     if(this.state.roleValue==="Publisher")
     {
-      regPublisherVerify();
+      //regPublisherVerify();
     }
     // else if(this.state.roleValue==="Voter")
     //  {
