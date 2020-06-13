@@ -104,12 +104,12 @@ export default class HomePage extends React.Component {
   
 
     var questions = [];
-    const len = await this.state.ipfscontract.methods.getQuestionListLength().call();
+    const len = await this.state.ipfscontract.methods.getQuestionListLength().call({from:fromAcc});
     var i;
 
     var cont = [];
     for (i = len-1; i >=0; i--) {
-      const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call();
+      const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call({from:fromAcc});
 
       // ipfs.get(ques, function (err, files) {
       //   files.forEach((file) => {
@@ -124,7 +124,7 @@ export default class HomePage extends React.Component {
       //   })
       // })
 
-      const details = await this.state.ipfscontract.methods.displayQuestionDetails(ques).call();
+      const details = await this.state.ipfscontract.methods.displayQuestionDetails(ques).call({from:fromAcc});
       const seconds = new Date().getTime() / 1000;
       //  this.setState({ c: cont },function(){
       // console.log(this.state.c);
