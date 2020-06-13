@@ -82,6 +82,7 @@ export default class HomePage extends React.Component {
   
     
       var role=await this.state.rolescontract.methods.verifyPublisher().call();
+      console.log(role);
       if(role===true)
         this.setState({roleValue:"Publisher"});
       else
