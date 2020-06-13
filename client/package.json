@@ -4,20 +4,22 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.1",
+    "@maticnetwork/maticjs": "^2.0.0",
+    "@maticnetwork/meta": "^1.0.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "bufferutil": "^4.0.1",
+    "delay": "^4.3.0",
     "ipfs-http-client": "^40.0.0",
+    "maticjs": "^1.0.1",
+    "node-metamask": "^1.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "web3": "^1.2.8",
-    "delay": "^4.3.0",
-    "@maticnetwork/maticjs": "^2.0.0",
-    "@maticnetwork/meta": "^1.0.3",
-    "maticjs": "^1.0.1",
-    "node-metamask": "^1.1.2"
+    "utf-8-validate": "^5.0.2",
+    "web3": "^1.2.8"
   },
   "scripts": {
     "start": "react-scripts start",

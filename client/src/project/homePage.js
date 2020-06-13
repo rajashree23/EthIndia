@@ -1,6 +1,6 @@
 import React from "react";
 import Web3 from "web3";
-import {regPublisherVerify,regSolverVerify,regVoterVerify} from "../js/index";
+// import {regPublisherVerify,regSolverVerify,regVoterVerify} from "../js/index";
 import ipfs from "../js/ipfshttp";
 import {ipfsABI} from "../js/IPFS";
 import {rolesABI} from "../js/roles";
@@ -159,21 +159,21 @@ export default class HomePage extends React.Component {
     }
   }
    
-  getRoles = () =>{
-    if(this.state.roleValue==="Publisher")
-    {
-      regPublisherVerify();
-    }
-    else if(this.state.roleValue==="Voter")
-     {
-      regVoterVerify();
-     }
-     else if(this.state.roleValue==="Voter")
-     { 
-       regSolverVerify();
+  // getRoles = () =>{
+  //   if(this.state.roleValue==="Publisher")
+  //   {
+  //     regPublisherVerify();
+  //   }
+  //   else if(this.state.roleValue==="Voter")
+  //    {
+  //     regVoterVerify();
+  //    }
+  //    else if(this.state.roleValue==="Voter")
+  //    { 
+  //      regSolverVerify();
 
-     }
-  }
+  //    }
+  // }
  
   captureFile = (event) => {
     event.preventDefault()
