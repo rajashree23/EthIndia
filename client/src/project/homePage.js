@@ -159,21 +159,21 @@ export default class HomePage extends React.Component {
     }
   }
    
-  // getRoles = () =>{
-  //   if(this.state.roleValue==="Publisher")
-  //   {
-  //     regPublisherVerify();
-  //   }
-  //   else if(this.state.roleValue==="Voter")
-  //    {
-  //     regVoterVerify();
-  //    }
-  //    else if(this.state.roleValue==="Voter")
-  //    { 
-  //      regSolverVerify();
+  getRoles = () =>{
+    if(this.state.roleValue==="Publisher")
+    {
+      regPublisherVerify();
+    }
+    // else if(this.state.roleValue==="Voter")
+    //  {
+    //   regVoterVerify();
+    //  }
+    //  else if(this.state.roleValue==="Voter")
+    //  { 
+    //    regSolverVerify();
 
-  //    }
-  // }
+    //  }
+  }
  
   captureFile = (event) => {
     event.preventDefault()
