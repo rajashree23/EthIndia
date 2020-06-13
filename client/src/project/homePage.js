@@ -1,6 +1,6 @@
 import React from "react";
 import Web3 from "web3";
-// import {regPublisherVerify,regSolverVerify,regVoterVerify} from "../js/index";
+import {regPublisherVerify} from "../js/index";
 import ipfs from "../js/ipfshttp";
 import {ipfsABI} from "../js/IPFS";
 import {rolesABI} from "../js/roles";
