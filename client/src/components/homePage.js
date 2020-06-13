@@ -81,25 +81,24 @@ export default class HomePage extends React.Component {
     // }
     var account =await web3.eth.getAccounts()
     var fromAcc=account.toString();
-    const y = await rolescontract.methods.verifyPublisher().call({from:fromAcc});
-    console.log(y);
-    
-      // var role=await this.state.rolescontract.methods.verifyPublisher().call();
-      // console.log(role);
-      // if(role===true)
-      //   this.setState({roleValue:"Publisher"});
-      // else
-      // {
-      //   role=await this.state.rolescontract.methods.verifyVoter().call();
-      //   if(role===true)
-      //    this.setState({roleValue:"Voter"});
-      //   else
-      //    {
-      //     role=await this.state.rolescontract.methods.verifySolver().call();
-      //    if(role===true)
-      //      this.setState({roleValue:"Solver"});
-      //    }
-      // }
+    var role= await rolescontract.methods.verifyPublisher().call({from:fromAcc});
+    console.log(role);
+    if(role===true)
+        this.setState({roleValue:"Publisher"});
+      else
+      {
+        role=await this.state.rolescontract.methods.verifyVoter().call({from:fromAcc});
+        if(role===true)
+         this.setState({roleValue:"Voter"});
+        else
+         {
+          role=await this.state.rolescontract.methods.verifySolver().call({from:fromAcc});
+         if(role===true)
+           this.setState({roleValue:"Solver"});
+         }
+      }
+     
+
      
     
   
