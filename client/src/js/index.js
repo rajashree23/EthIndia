@@ -1,3 +1,6 @@
+import Web3 from "web3";
+import { rolesABI } from "../js/roles";
+
 //Matic requirement
 const Network = require("@maticnetwork/meta/network");
 const Matic = require("@maticnetwork/maticjs").default;
@@ -7,8 +10,7 @@ const config = require("./Config.json");
 // var app = express();
 var bodyParser = require("body-parser");
 //Web3 and metamask
-import Web3 from "web3";
-import { rolesABI } from "../js/roles";
+
 // const MetaMaskConnector = require("node-metamask");
 const delay = require('delay');
 
@@ -85,7 +87,49 @@ const delay = require('delay');
 // init();
 
 async function checkBal() {
+  if (window.ethereum) {
+    window.web3 = new Web3(window.ethereum)
+    await window.ethereum.enable()
+  }
+  else if (window.web3) {
+    window.web3 = new Web3(window.web3.currentProvider)
+  }
+  else {
+    window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+  }
+  
+  const network = new Network(config.network, config.version); //network configuration
+  const MaticNetwork = network.Matic;
+  const MainNetwork = network.Main;
+  
+  const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
+  const Matic_Erc20Address = config.Matic_Erc20Address;
+  const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
+  const Matic_Erc721Address = config.Matic_Erc721Address;
+  
+  //const from = account.toString(); // from address
+  
+  const matic = new Matic({
+    // maticProvider: connector.getProvider(),
+    parentProvider: MainNetwork.RPC,
+    rootChain: MainNetwork.Contracts.RootChain,
+    withdrawManager: MainNetwork.Contracts.WithdrawManagerProxy,
+    depositManager: MainNetwork.Contracts.DepositManagerProxy,
+    registry: MainNetwork.Contracts.Registry,
+  });
+  
+  async function init() {
+    await matic.initialize();
+  
+  }
+  init();
+  
+  
+  
+  const web3 = window.web3
   const from = await web3.eth.getAccounts()
+  
+  
   var k = await matic.balanceOfERC20(from, Matic_Erc20Address, { from })
   console.log(k);
   return k;
@@ -93,6 +137,54 @@ async function checkBal() {
 
 
 async function tokenTransDeployer(amo){
+  const network = new Network(config.network, config.version); //network configuration
+  const MaticNetwork = network.Matic;
+  const MainNetwork = network.Main;
+  
+  const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
+  const Matic_Erc20Address = config.Matic_Erc20Address;
+  const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
+  const Matic_Erc721Address = config.Matic_Erc721Address;
+  
+  //const from = account.toString(); // from address
+  
+  const matic = new Matic({
+    // maticProvider: connector.getProvider(),
+    parentProvider: MainNetwork.RPC,
+    rootChain: MainNetwork.Contracts.RootChain,
+    withdrawManager: MainNetwork.Contracts.WithdrawManagerProxy,
+    depositManager: MainNetwork.Contracts.DepositManagerProxy,
+    registry: MainNetwork.Contracts.Registry,
+  });
+  
+  async function init() {
+    await matic.initialize();
+  
+  }
+  //function to fetch default account
+  async function getAccount(){
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+    }
+    
+     
+    
+    
+    
+    const web3 = window.web3
+    var account =await web3.eth.getAccounts()
+    console.log(account.toString())
+    return account.toString()
+  }
+  //to initiate the matic 
+  init();
 	var recipient = "0xD6aaCEd767524B1CAc368EC732dB37EC9dB268dB";
 	var from = await getAccount()
   var amount = amo
@@ -142,38 +234,38 @@ async function regPublisherVerify() {//Register and verify publisher
   
   // // Importing required dependenties
   
-  const network = new Network(config.network, config.version); //network configuration
-  const MaticNetwork = network.Matic;
-  const MainNetwork = network.Main;
+  // const network = new Network(config.network, config.version); //network configuration
+  // const MaticNetwork = network.Matic;
+  // const MainNetwork = network.Main;
   
-  const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
-  const Matic_Erc20Address = config.Matic_Erc20Address;
-  const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
-  const Matic_Erc721Address = config.Matic_Erc721Address;
+  // const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
+  // const Matic_Erc20Address = config.Matic_Erc20Address;
+  // const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
+  // const Matic_Erc721Address = config.Matic_Erc721Address;
   
-  //const from = account.toString(); // from address
+  // //const from = account.toString(); // from address
   
-  const matic = new Matic({
-    maticProvider: connector.getProvider(),
-    parentProvider: MainNetwork.RPC,
-    rootChain: MainNetwork.Contracts.RootChain,
-    withdrawManager: MainNetwork.Contracts.WithdrawManagerProxy,
-    depositManager: MainNetwork.Contracts.DepositManagerProxy,
-    registry: MainNetwork.Contracts.Registry,
-  });
+  // const matic = new Matic({
+  //   maticProvider: connector.getProvider(),
+  //   parentProvider: MainNetwork.RPC,
+  //   rootChain: MainNetwork.Contracts.RootChain,
+  //   withdrawManager: MainNetwork.Contracts.WithdrawManagerProxy,
+  //   depositManager: MainNetwork.Contracts.DepositManagerProxy,
+  //   registry: MainNetwork.Contracts.Registry,
+  // });
   
-  async function init() {
-    await matic.initialize();
+  // async function init() {
+  //   await matic.initialize();
   
-  }
-  //function to fetch default account
-  async function getAccount(){
-    var account =await web3.eth.getAccounts()
-    console.log(account.toString())
-    return account.toString()
-  }
-  //to initiate the matic 
-  init();
+  // }
+  // //function to fetch default account
+  // async function getAccount(){
+  //   var account =await web3.eth.getAccounts()
+  //   console.log(account.toString())
+  //   return account.toString()
+  // }
+  // //to initiate the matic 
+  // init();
   
    
 
@@ -201,4 +293,4 @@ async function regPublisherVerify() {//Register and verify publisher
 
 
 
-module.exports(regPublisherVerify);
+module.export(regPublisherVerify);
