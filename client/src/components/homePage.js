@@ -3,8 +3,8 @@ import Web3 from "web3";
 //import {regPublisherVerify} from "../js/index";
 //import regPublisherVerify from "../js/index2"
 import ipfs from "../js/ipfshttp";
-import {ipfsABI} from "../js/IPFS";
-import {rolesABI} from "../js/roles";
+import { ipfsABI } from "../js/IPFS";
+import { rolesABI } from "../js/roles";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -28,6 +28,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Loader from "./loader";
+import SnackBar from "./snackbar";
 
 //var regPublisherVerify=require("../js/index")
 
@@ -60,14 +62,14 @@ export default class HomePage extends React.Component {
   }
 
   async loadBlockchainData() {
-     
+
     const web3 = window.web3
     // Load account
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
-    const ipfscontract = new web3.eth.Contract(ipfsABI,"0x7993d027e47b2d2377543c305d9114bd3959845f")
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
     this.setState({ ipfscontract })
-    const rolescontract = new web3.eth.Contract(rolesABI,"0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
+    const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
     this.setState({ rolescontract })
     // const networkId = await web3.eth.net.getId()
     // const networkData = IPFS.networks[networkId]
@@ -79,37 +81,34 @@ export default class HomePage extends React.Component {
     // } else {
     //   window.alert('Smart contract not deployed to detected network.')
     // }
-    var account =await web3.eth.getAccounts()
-    var fromAcc=account.toString();
-    var role= await rolescontract.methods.verifyPublisher().call({from:fromAcc});
-    console.log(role);
-    if(role===true)
-        this.setState({roleValue:"Publisher"});
-      else
-      {
-        role=await this.state.rolescontract.methods.verifyVoter().call({from:fromAcc});
-        if(role===true)
-         this.setState({roleValue:"Voter"});
-        else
-         {
-          role=await this.state.rolescontract.methods.verifySolver().call({from:fromAcc});
-         if(role===true)
-           this.setState({roleValue:"Solver"});
-         }
+    var account = await web3.eth.getAccounts()
+    var fromAcc = account.toString();
+    var role = await rolescontract.methods.verifyPublisher().call({ from: fromAcc });
+    if (role === true)
+      this.setState({ roleValue: "Publisher" });
+    else {
+      role = await this.state.rolescontract.methods.verifyVoter().call({ from: fromAcc });
+      if (role === true)
+        this.setState({ roleValue: "Voter" });
+      else {
+        role = await this.state.rolescontract.methods.verifySolver().call({ from: fromAcc });
+        if (role === true)
+          this.setState({ roleValue: "Solver" });
       }
-     
+    }
 
-     
-    
-  
+
+
+
+
 
     var questions = [];
-    const len = await this.state.ipfscontract.methods.getQuestionListLength().call({from:fromAcc});
+    const len = await this.state.ipfscontract.methods.getQuestionListLength().call({ from: fromAcc });
     var i;
 
     var cont = [];
-    for (i = len-1; i >=0; i--) {
-      const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call({from:fromAcc});
+    for (i = len - 1; i >= 0; i--) {
+      const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call({ from: fromAcc });
 
       // ipfs.get(ques, function (err, files) {
       //   files.forEach((file) => {
@@ -124,21 +123,21 @@ export default class HomePage extends React.Component {
       //   })
       // })
 
-      const details = await this.state.ipfscontract.methods.displayQuestionDetails(ques).call({from:fromAcc});
+      const details = await this.state.ipfscontract.methods.displayQuestionDetails(ques).call({ from: fromAcc });
       const seconds = new Date().getTime() / 1000;
       //  this.setState({ c: cont },function(){
       // console.log(this.state.c);
 
 
       var temp = {};
-      if (details[1] >=seconds) {
+      if (details[1] >= seconds) {
 
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
       }
       else {
-       
+
         //send voting details and call for winning solver address
-        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result":"abcdlkjdwjeiu2193"}
+        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": "abcdlkjdwjeiu2193" }
       }
 
 
@@ -149,20 +148,19 @@ export default class HomePage extends React.Component {
 
 
     }
-    this.setState({questions:questions});
+    this.setState({ questions: questions });
     var abc = this.state.finalobj;
     abc.cardofquestion = questions;
     abc.type = this.state.roleValue;
-    this.setState({finalobj: abc});
-    console.log(this.state.finalobj);
+    this.setState({ finalobj: abc, loader: false, openSnackBar: true, messageSnackBar: "Entries Found" });
 
   }
   constructor(props) {
     super(props);
     this.state = {
-      questions:[],
+      questions: [],
       rolescontract: null,
-      ipfscontract:null,
+      ipfscontract: null,
       web3: null,
       paymentDialog: false,
       roleValue: "",
@@ -171,14 +169,16 @@ export default class HomePage extends React.Component {
       buffer: null,
       account: null,
       yes: "false",
-      finalobj:{cardofquestion:[],type:""}
+      finalobj: { cardofquestion: [], type: "" },
+      loader: true,
+      openSnackBar: false,
+      messageSnackBar: ""
 
     }
   }
-   
-  getRoles = () =>{
-    if(this.state.roleValue==="Publisher")
-    {
+
+  getRoles = () => {
+    if (this.state.roleValue === "Publisher") {
       //regPublisherVerify();
     }
     // else if(this.state.roleValue==="Voter")
@@ -191,7 +191,7 @@ export default class HomePage extends React.Component {
 
     //  }
   }
- 
+
   captureFile = (event) => {
     event.preventDefault()
     const file = event.target.files[0]
@@ -199,24 +199,18 @@ export default class HomePage extends React.Component {
     reader.readAsArrayBuffer(file)
     reader.onloadend = () => {
       this.setState({ buffer: Buffer(reader.result) })
-      console.log('buffer', this.state.buffer)
     }
 
   }
 
   onSubmit = (event) => {
-    console.log("ONSUBMIT section");
     // console.log(this.state.contract);
     ipfs.add(this.state.buffer, (error, result) => {
-      console.log('ipfs results', result[0].hash);
       var today = new Date();
 
       var date = today.getDate() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getFullYear();
       this.state.ipfscontract.methods.publisherUploadQues(result[0].hash, this.state.postReward, date).send({ from: this.state.account }).then((r) => {
 
-        console.log('ipfs added');
-        console.log('redirecting');
-        window.alert('Question added')
         return window.location.reload();
         // this.setState({})
 
@@ -230,7 +224,7 @@ export default class HomePage extends React.Component {
 
   }
   render() {
-    console.log(this.state.questions);
+    console.log(this.state);
 
     return (
       <div style={{ backgroundColor: "#E6F9F9" }}>
@@ -254,13 +248,13 @@ export default class HomePage extends React.Component {
                 }}>
                   Get Roles
                   </Button>
-                  <Button style={btn} onClick={() => {
+                <Button style={btn} onClick={() => {
                   this.setState({
                     paymentDialog: true
                   })
                 }}>
                   Transfer To Matic
-                  </Button> 
+                  </Button>
                 <Button style={btn}>Profile</Button>
                 <Button style={btn}>GuideLines</Button>
                 <Button style={btn}>About</Button>
@@ -294,9 +288,14 @@ export default class HomePage extends React.Component {
                       />
                     </Grid>
                     <Grid item xs={12} md={12} style={{ textAlign: "right" }}>
-                      <Button style={{ marginTop: -30 }} color="primary" variant="outlined" onClick={this.onSubmit} >
-                        Post
-              </Button>
+                      {
+                        this.state.roleValue === "Publisher" &&
+                        <Button
+                          style={{ marginTop: -30 }} color="primary" variant="outlined" onClick={this.onSubmit} >
+                          Post
+                       </Button>
+                      }
+
                     </Grid>
                   </Grid>
 
@@ -313,10 +312,9 @@ export default class HomePage extends React.Component {
               {this.state.questions.length > 0 && <span>
                 {this.state.questions.map(s => (
                   <div>
-                    {/* {console.log(s)} */}
                     <QuestionsCard
                       data={s}
-                    // arr={this.state.c.map}
+                      type={this.state.roleValue}
                     />
                     <br />
                   </div>
@@ -355,16 +353,20 @@ export default class HomePage extends React.Component {
           </Grid>
           <DialogActions>
             <Button
-              onClick={() => { this.setState({ paymentDialog: false});
-               this.loadBlockchainData()  }}
+              onClick={() => {
+                this.setState({ paymentDialog: false });
+                this.loadBlockchainData()
+              }}
               color="primary"
               variant="outlined"
             >
               Close
           </Button>
             <Button
-              onClick={() => { this.setState({ paymentDialog: false });
-                this.getRoles() }}
+              onClick={() => {
+                this.setState({ paymentDialog: false });
+                this.getRoles()
+              }}
               color="primary"
               autoFocus
               variant="outlined"
@@ -373,6 +375,13 @@ export default class HomePage extends React.Component {
           </Button>
           </DialogActions>
         </Dialog>
+        {this.state.loader &&
+          <Loader />
+        }
+        <SnackBar
+          open={this.state.openSnackBar}
+          message={this.state.messageSnackBar}
+        />
       </div >
 
     )

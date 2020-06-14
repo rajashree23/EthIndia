@@ -14,7 +14,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
 export default class QuestionsCard extends React.Component {
-  
+
 
   constructor(props) {
     super(props);
@@ -22,9 +22,6 @@ export default class QuestionsCard extends React.Component {
     }
   }
   render() {
-    console.log(this.props.data.question[this.props.i]);
-    console.log(this.props);
-    // console.log(this.props.i);
     return (
       <Card style={{ borderRadius: 10 }} >
         <CardContent>
@@ -41,8 +38,8 @@ export default class QuestionsCard extends React.Component {
             </Grid>
             <Grid item xs={12} md={12}>
               <Typography color="textSecondary" variant="h6" gutterBottom>
-              <a href={"https://ipfs.infura.io/ipfs/" + this.props.data.question} target="_blank" >
-              {this.props.data.question}  </a>
+                <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + this.props.data.question} target="_blank" >
+                  {this.props.data.question}  </a>
               </Typography>
 
             </Grid>
@@ -54,8 +51,16 @@ export default class QuestionsCard extends React.Component {
 
         </CardContent>
         <CardActions>
-          <Button color="primary" variant="outlined" size="small">Solve</Button>
-          <Button color="primary" variant="outlined" size="small">Vote</Button>
+          {
+            this.props.type === "Solver" &&
+            <Button color="primary" variant="outlined" size="small">Solve</Button>
+          }
+          {
+            this.props.type === "Voter" &&
+            <Button color="primary" variant="outlined" size="small">Vote</Button>
+          }
+
+
           {/* <Button color="primary" variant="outlined" size="small"  onClick={() => { this.props.refresh  }}>Get Question</Button> */}
         </CardActions>
       </Card>
