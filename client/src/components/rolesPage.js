@@ -1,4 +1,5 @@
 import React from "react";
+import regPublisherVerify from "../js/regPublisher"
 
 import {
   Button,
@@ -15,16 +16,42 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+
 export default class MaticPage extends React.Component {
 
+  
 
   constructor(props) {
     super(props);
     this.state = {
       roleValue: "",
-      rolesDialog: true
+      rolesDialog: true,
+      
     }
   }
+
+getRoles = () => {
+    if (this.state.roleValue === "Publisher") {
+     var a=regPublisherVerify();
+     if(a===true){
+       
+     }
+    }
+    // else if(this.state.roleValue==="Voter")
+    //  {
+    //   regVoterVerify();
+    //  }
+    //  else if(this.state.roleValue==="Voter")
+    //  { 
+    //    regSolverVerify();
+
+    //  }
+  }
+
+
+
+
+
   render() {
     return (
       <Dialog
@@ -60,6 +87,7 @@ export default class MaticPage extends React.Component {
           <Button
             onClick={() => {
               this.setState({ rolesDialog: false });
+              this.getRoles();
             }}
             color="primary"
             autoFocus
