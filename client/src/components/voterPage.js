@@ -184,7 +184,7 @@ export default class VoterPage extends React.Component {
             <Grid item xs={12} md={12}>
               <Typography color="textSecondary" variant="h6" gutterBottom>
                 <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + s.readMe} target="_blank" >
-                  {s.readMe}  </a>
+                  {"ReadMe:-"+s.readMe}  </a>
               </Typography>
 
             </Grid>
