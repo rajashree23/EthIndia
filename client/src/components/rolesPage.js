@@ -44,9 +44,9 @@ export default class MaticPage extends React.Component {
     //  }
     //  else if(this.state.roleValue==="Voter")
     //  { 
-          // var a=regSolverVerify();
-          // this.setState({redirect:a}),
-      
+    // var a=regSolverVerify();
+    // this.setState({redirect:a}),
+
     //  }
   }
 

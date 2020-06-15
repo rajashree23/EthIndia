@@ -57,7 +57,7 @@ export default class VoterPage extends React.Component {
 
     var account = await web3.eth.getAccounts()
     var fromAcc = account.toString();
-    var i=0;
+    var i = 0;
     var solutions = [];
     var temp = {};
     const len = await this.state.ipfscontract.methods.getSolverSolutionLinks(this.props.location.state.data.question).call({ from: fromAcc });
@@ -171,23 +171,24 @@ export default class VoterPage extends React.Component {
                   <Card style={{ borderRadius: 10 }} >
                     <CardContent>
                       <Grid container spacing={2}>
-                      <Grid item xs={10} md={10}>
-              <Typography variant="title" color="inherit" >
-                {"Public Address :-" + s.solverAddress}
-              </Typography>
-            </Grid>
-            <Grid item xs={2} md={2}>
-              <Typography variant="subheading" color="inherit" >
-                {"Ethfiddle Link :-" + s.solutionLink}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <Typography color="textSecondary" variant="h6" gutterBottom>
-                <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + s.readMe} target="_blank" >
-                  {"ReadMe:-"+s.readMe}  </a>
-              </Typography>
+                        <Grid item xs={10} md={10}>
+                          <Typography variant="title" color="inherit" >
+                            {"Public Address :-" + s.solverAddress}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={2} md={2}>
+                          <Typography variant="subheading" color="inherit" >
+                            {"Ethfiddle Link :-" + s.solutionLink}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12} md={12}>
+                          <Typography color="textSecondary" variant="h6" gutterBottom>
+                            <Typography color="textSecondary" variant="h6" gutterBottom>{"ReadMe :-"}</Typography>
+                            <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + s.readMe} target="_blank" >
+                              {s.readMe}  </a>
+                          </Typography>
 
-            </Grid>
+                        </Grid>
                         <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
                           <IconButton >
                             <Icon>

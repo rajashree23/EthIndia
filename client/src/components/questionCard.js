@@ -22,38 +22,38 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link } from "react-router-dom"
 
 export default class QuestionsCard extends React.Component {
- 
 
-    async componentWillMount() {
-      await this.loadWeb3()
-      await this.loadBlockchainData()
+
+  async componentWillMount() {
+    await this.loadWeb3()
+    await this.loadBlockchainData()
+  }
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
     }
-  
-    async loadWeb3() {
-      if (window.ethereum) {
-        window.web3 = new Web3(window.ethereum)
-        await window.ethereum.enable()
-      }
-      else if (window.web3) {
-        window.web3 = new Web3(window.web3.currentProvider)
-      }
-      else {
-        window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-      }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
     }
-  
-    async loadBlockchainData() {
-  
-      const web3 = window.web3
-  
-      const accounts = await web3.eth.getAccounts()
-      this.setState({ account: accounts[0], loader: true })
-      const ipfscontract = new web3.eth.Contract(ipfsABI, "0x33d85650d800b63ad583bcfaf78d64fe218fc56d")
-      this.setState({ ipfscontract })
-  
-      var account = await web3.eth.getAccounts()
-      var fromAcc = account.toString();
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
+  }
+
+  async loadBlockchainData() {
+
+    const web3 = window.web3
+
+    const accounts = await web3.eth.getAccounts()
+    this.setState({ account: accounts[0], loader: true })
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x33d85650d800b63ad583bcfaf78d64fe218fc56d")
+    this.setState({ ipfscontract })
+
+    var account = await web3.eth.getAccounts()
+    var fromAcc = account.toString();
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -61,7 +61,7 @@ export default class QuestionsCard extends React.Component {
       ethFiddleLink: "",
       ipfscontract: null,
       web3: null,
-      account:null
+      account: null
     }
   }
   captureFile = (event) => {
@@ -74,28 +74,28 @@ export default class QuestionsCard extends React.Component {
     }
   }
 
-    onSubmit = () => {
-      // console.log(this.state.contract);
-      ipfs.add(this.state.buffer, (error, result) => {
-        var today = new Date();
-        
-        
-        this.state.ipfscontract.methods.solverUploadSol(this.props.data.question, result[0].hash, this.state.ethFiddleLink).send({ from: this.state.account}).then((r) => {
+  onSubmit = () => {
+    // console.log(this.state.contract);
+    ipfs.add(this.state.buffer, (error, result) => {
+      var today = new Date();
 
-          // return window.location.reload();
-          // this.setState({})
 
-        })
-        if (error)
-          console.log(error);
+      this.state.ipfscontract.methods.solverUploadSol(this.props.data.question, result[0].hash, this.state.ethFiddleLink).send({ from: this.state.account }).then((r) => {
 
+        // return window.location.reload();
+        // this.setState({})
 
       })
+      if (error)
+        console.log(error);
 
 
-    }
+    })
 
-  
+
+  }
+
+
   render() {
     return (
       <Card style={{ borderRadius: 10 }} >
@@ -208,9 +208,9 @@ export default class QuestionsCard extends React.Component {
           </Button>
             <Button
               onClick={() => {
-                 
+
                 this.setState({ solveDialog: false });
-                this.onSubmit() ;
+                this.onSubmit();
               }}
               color="primary"
               autoFocus
