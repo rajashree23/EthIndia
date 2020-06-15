@@ -17,101 +17,98 @@ const config = require("./Config.json");
 // 	}, // Function to run when MetaMask is connected (optional)
 //   });
 //const Web3 = require("web3");
-export default async function regPublisherVerify(){
-    async function loadWeb3() {
-        if (window.ethereum) {
-          window.web3 = new Web3(window.ethereum)
-          await window.ethereum.enable()
-        }
-        else if (window.web3) {
-          window.web3 = new Web3(window.web3.currentProvider)
-        }
-        else {
-          window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-        }
-      }
-    
-loadWeb3();
+export default async function regPublisherVerify() {
+  async function loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+    }
+  }
 
-//const web3 = new Web3(connector.getProvider());
-const contractAddress = "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe";
-const contract = new window.web3.eth.Contract(rolesABI, contractAddress);
+  loadWeb3();
 
-const network = new Network(config.network, config.version); //network configuration
-const MaticNetwork = network.Matic;
-const MainNetwork = network.Main;
+  //const web3 = new Web3(connector.getProvider());
+  const contractAddress = "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe";
+  const contract = new window.web3.eth.Contract(rolesABI, contractAddress);
 
-const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
-const Matic_Erc20Address = config.Matic_Erc20Address;
-const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
-const Matic_Erc721Address = config.Matic_Erc721Address;
+  const network = new Network(config.network, config.version); //network configuration
+  const MaticNetwork = network.Matic;
+  const MainNetwork = network.Main;
 
-//const from = account.toString(); // from address
+  const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
+  const Matic_Erc20Address = config.Matic_Erc20Address;
+  const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
+  const Matic_Erc721Address = config.Matic_Erc721Address;
 
-const matic = new Matic({
-// maticProvider: connector.getProvider(),
-parentProvider: MainNetwork.RPC,
-rootChain: MainNetwork.Contracts.RootChain,
-withdrawManager: MainNetwork.Contracts.WithdrawManagerProxy,
-depositManager: MainNetwork.Contracts.DepositManagerProxy,
-registry: MainNetwork.Contracts.Registry,
-});
+  //const from = account.toString(); // from address
 
-async function init() {
-await matic.initialize();
-await matic.setWallet(config.privateKey)
-}
-init();
-async function getAccount(){
-var account =await window.web3.eth.getAccounts()
-console.log(account.toString())
-return account.toString()
-}
+  const matic = new Matic({
+    maticProvider: window.web3,
+    parentProvider: window.web3,
+    rootChainAddress: config.ROOTCHAIN_ADDRESS,
+    syncerUrl: config.SYNCER_URL,
+    watcherUrl: config.WATCHER_URL,
+  })
+  async function init() {
+    await matic.initialize();
+    await matic.setWallet(config.privateKey)
+  }
+  init();
+  async function getAccount() {
+    var account = await window.web3.eth.getAccounts()
+    console.log(account.toString())
+    return account.toString()
+  }
 
-async function checkBal(){
-const from =await getAccount()
-var k = await matic.balanceOfERC20(from, Matic_Erc20Address, {from})
-console.log(k);
-return k;
+  async function checkBal() {
+    const from = await getAccount()
+    var k = await matic.balanceOfERC20(from, Matic_Erc20Address, { from })
+    console.log(k);
+    return k;
 
-}
-async function tokenTransDeployer(amo){
-var recipient = "0xD6aaCEd767524B1CAc368EC732dB37EC9dB268dB";
-var from = await getAccount()
-var amount = amo
-var token = Matic_Erc20Address;
-const x = await matic.transferERC20Tokens(token, recipient, amount, {from})
-console.log(`${x} is the output`)
-if(x.transactionHash!=null)
-return true
-else return false
-}
+  }
+  async function tokenTransDeployer(amo) {
+    var recipient = "0xD6aaCEd767524B1CAc368EC732dB37EC9dB268dB";
+    var from = await getAccount()
+    var amount = amo
+    var token = Matic_Erc20Address;
+    const x = await matic.transferERC20Tokens(token, recipient, amount, { from })
+    console.log(`${x} is the output`)
+    if (x.transactionHash != null)
+      return true
+    else return false
+  }
 
 
-async function reg(){
-  const bal = checkBal()
+  async function reg() {
+    const bal = checkBal()
     const fromAcc = getAccount()
     console.log(fromAcc)
-    if(bal>=10000){
-      const out = await tokenTransDeployer(10000/(10^8))//in matic network
+    if (bal >= 10000) {
+      const out = await tokenTransDeployer(10000 / (10 ^ 8))//in matic network
       await delay(50000)//Delay to change network from Matic to Ropston
-      if(out){//in ropston network
-          const x = await contract.methods.addPublisher().send({from:fromAcc});
-          console.log(`${x} from y`);
-          const y = await contract.methods.verifyPublisher().call({from:fromAcc});
+      if (out) {//in ropston network
+        const x = await contract.methods.addPublisher().send({ from: fromAcc });
+        console.log(`${x} from y`);
+        const y = await contract.methods.verifyPublisher().call({ from: fromAcc });
         console.log(`${y} from y`);
-  }
+      }
       else
         console.log("Transaction Failed")
-  }
-    else
-    {
-    console.log("Insufficient Balance to be Publisher")
     }
-}
+    else {
+      console.log("Insufficient Balance to be Publisher")
+    }
+  }
 
-reg()
+  reg()
 
 
- 
+
 }
