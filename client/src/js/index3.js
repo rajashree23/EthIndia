@@ -18,6 +18,7 @@ const config = require("./Config.json");
 //   });
 //const Web3 = require("web3");
 export default async function regPublisherVerify() {
+  var y;
   async function loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
@@ -96,7 +97,7 @@ export default async function regPublisherVerify() {
       if (out) {//in ropston network
         const x = await contract.methods.addPublisher().send({ from: fromAcc });
         console.log(`${x} from y`);
-        const y = await contract.methods.verifyPublisher().call({ from: fromAcc });
+        y = await contract.methods.verifyPublisher().call({ from: fromAcc });
         console.log(`${y} from y`);
       }
       else
@@ -108,6 +109,8 @@ export default async function regPublisherVerify() {
   }
 
   reg()
+
+  return y;
 
 
 
