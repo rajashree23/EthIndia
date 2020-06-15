@@ -12,6 +12,8 @@ contract IPFS {
          uint256 timeStart;
          uint256 timeEnd;
          string date;
+         address solver;
+
          
          }
 
@@ -78,6 +80,8 @@ contract IPFS {
                 questionDetails[questionIpfs].timeStart=now;
                 questionDetails[questionIpfs].timeEnd=now+604800;
                 questionDetails[questionIpfs].date=dateTime;
+                questionDetails[questionIpfs].solver=address(0);
+
                 
 
           
@@ -122,9 +126,9 @@ contract IPFS {
      return questiondetails[i];
    }
 
-    function displayQuestionDetails(string memory ipfs) public view returns(address,uint256,string memory){
+    function displayQuestionDetails(string memory ipfs) public view returns(address,uint256,string memory,address){
      
-          return (questionDetails[ipfs].publisher,questionDetails[ipfs].timeEnd,questionDetails[ipfs].date);
+          return (questionDetails[ipfs].publisher,questionDetails[ipfs].timeEnd,questionDetails[ipfs].date,questionDetails[ipfs].solver);
       
         
     
@@ -168,7 +172,10 @@ function solutionLinkDetails(string memory sol)public view returns(address,strin
 
 
 
-  
+  //set result
+function setResult(string memory ipfs,address resSolver)public{
+  questionDetails[ipfs].solver=resSolver;
+}
   
 //vote details
 
@@ -178,15 +185,15 @@ function getSolverSolutionLinks(string memory ipfs)public view returns(uint256){
         
 }
 
- function getSolutionLink(uint256 i,string memory ipfs) public view returns(string memory){
-  return questionList[ipfs].solutionLink[i];
+ function getSolutionLink(uint256 i,string memory ipfs) public view returns(string memory,address){
+  return (questionList[ipfs].solutionLink[i],solutionList[questionList[ipfs].solutionLink[i]].solver);
  
  } 
 
 
- function getVoteLength(string memory sol) public view returns(address[] memory,address[]memory ,address){
+ function getsolver(string memory sol) public view returns(address){
 
-   return (solutionList[sol].agree,solutionList[sol].disagree,solutionList[sol].solver);
+   return (solutionList[sol].solver);
  }
 
 

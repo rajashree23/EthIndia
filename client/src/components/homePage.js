@@ -135,12 +135,38 @@ export default class HomePage extends React.Component {
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
       }
       else {
+        
+        if(details[3]=="0x0000000000000000000000000000000000000000")
+         {  
+              //send voting details and call for winning solver address
+              const sollinkslen = await this.state.ipfscontract.methods.questionSolverSolutionLinks(ques).call({ from: fromAcc });
+              var max=0;
+              var sol=[];
+              var ressolver="";
+              for(i=0;i<sollinkslen;i++)
+              {
+                  sol = await this.state.ipfscontract.methods.getSolutionLink(i,ques).call({from:fromAcc});
+                 const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({from:fromAcc});
+                 if(res>max)
+                 {
+                   max=res;
+                   ressolver=sol[1];
+                 }
+              } 
+           
+              this.state.ipfscontract.methods.setResult(ques, sol[1]).send({ from: this.state.account }).then((r) => {
 
-        //send voting details and call for winning solver address
-        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": "abcdlkjdwjeiu2193" }
-      }
+                console.log("result set");
+                // this.setState({})
+        
+              })
+         }
+        
+          
+        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
+      
 
-
+        }
       questions.push(temp);
 
 
