@@ -57,10 +57,18 @@ export default class VoterPage extends React.Component {
     
     var account = await web3.eth.getAccounts()
     var fromAcc = account.toString();
-    
-     
-
-
+     var i;
+     var solutions=[];
+     var temp={};
+     const len = await this.state.ipfscontract.methods.getSolutionLinkLen().call({ from: fromAcc });
+     for(i=0;i<len;i++)
+     {
+       const sollink = await this.state.ipfscontract.methods.solutionLinkList(this.props.location.state.data.question,i).call({ from: fromAcc });
+       const readme = await this.state.ipfscontract.methods.solutionLinkDetails(sollink).call({ from: fromAcc });
+       temp = {"solverAddress":readme[0],"solutionLink":sollink,"readMe":readme[1]};
+       solutions.push(temp);
+     }
+    this.setState({solutions:solutions});
 
   }
 
@@ -68,8 +76,26 @@ export default class VoterPage extends React.Component {
     super(props);
     this.state = {
       roleValue: "",
-      rolesDialog: true
+      rolesDialog: true,
+      solutions:[]
     }
+  }
+
+  Agree = () => {
+    this.state.ipfscontract.methods.agree().send({ from: this.state.account }).then((r) => {
+
+      return window.location.reload();
+      // this.setState({})
+
+    })
+  }
+  Disgree = () => {
+    this.state.ipfscontract.methods.disgree().send({ from: this.state.account }).then((r) => {
+
+      return window.location.reload();
+      // this.setState({})
+
+    })
   }
   render() {
     console.log(this.props)
@@ -152,12 +178,12 @@ export default class VoterPage extends React.Component {
                     </Typography>
                   </Grid>
                   <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
-                    <IconButton>
+                    <IconButton onClick={this.onAgree}>
                       <Icon>
                         thumb_up_alt
                       </Icon>
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={this.onDisagree}>
                       <Icon>
                         thumb_down_alt
                       </Icon>

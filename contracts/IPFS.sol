@@ -27,7 +27,7 @@ contract IPFS {
            address solver;
            address[] agree;
            address[] disagree;
-           string[] suggestions;
+           
            string readMe;
             }
 
@@ -54,11 +54,11 @@ contract IPFS {
          solutionList[sol].agree.push(msg.sender);
     }
     
-    function disagree(string memory sol,string memory feedback) public 
+    function disagree(string memory sol) public 
     {
-        require(bytes(feedback).length>0); 
+         
         solutionList[sol].disagree.push(msg.sender);
-        solutionList[sol].suggestions.push(feedback);
+        
     }
     //End
 

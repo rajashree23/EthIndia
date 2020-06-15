@@ -132,11 +132,11 @@ export default class HomePage extends React.Component {
               //send voting details and call for winning solver address
               const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
               var max=0;
-              var sol=[];
+              
               var ressolver="";
               for(i=0;i<sollinkslen;i++)
               {
-                  sol = await this.state.ipfscontract.methods.getSolutionLink(i,ques).call({from:fromAcc});
+                const sol = await this.state.ipfscontract.methods.getSolutionLink(i,ques).call({from:fromAcc});
                  const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({from:fromAcc});
                  if(res>max)
                  {
@@ -372,7 +372,7 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
-                this.transTok(this.state.numberOfToken);
+                transTok(this.state.numberOfToken);
 
               }}
               color="primary"
