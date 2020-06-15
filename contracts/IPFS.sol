@@ -173,8 +173,9 @@ function solutionLinkDetails(string memory sol)public view returns(address,strin
 
 
   //set result
-function setResult(string memory ipfs,address resSolver)public{
+function setResult(string memory ipfs,address resSolver)public  returns(uint256){
   questionDetails[ipfs].solver=resSolver;
+  return 0;
 }
   
 //vote details
@@ -214,7 +215,17 @@ function getSolverSolutionLinks(string memory ipfs)public view returns(uint256){
 //to verify duplicate questions
 
 
-
+//calculating max accuracy
+ function getAccuracy(string memory sol) public view returns (uint256){
+        uint256 x=solutionList[sol].agree.length;
+        uint256 y=solutionList[sol].disagree.length;
+        uint256 denominator=x+y;
+        if(denominator==0)
+        return 0;
+        uint256 numerator = x*100;
+        return numerator/denominator;
+        
+    }
 
 
 
