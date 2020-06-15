@@ -57,7 +57,7 @@ export default class VoterPage extends React.Component {
 
     var account = await web3.eth.getAccounts()
     var fromAcc = account.toString();
-    var i;
+    var i=0;
     var solutions = [];
     var temp = {};
     const len = await this.state.ipfscontract.methods.getSolverSolutionLinks(this.props.location.state.data.question).call({ from: fromAcc });
@@ -185,12 +185,12 @@ export default class VoterPage extends React.Component {
                           </Typography>
                         </Grid>
                         <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
-                          <IconButton onClick={this.onAgree(s.sollink)}>
+                          <IconButton onClick={this.onAgree(s.solutionLink)}>
                             <Icon>
                               thumb_up_alt
                       </Icon>
                           </IconButton>
-                          <IconButton onClick={this.onDisagree(s.sollink)}>
+                          <IconButton onClick={this.onDisagree(s.solutionLink)}>
                             <Icon>
                               thumb_down_alt
                       </Icon>
