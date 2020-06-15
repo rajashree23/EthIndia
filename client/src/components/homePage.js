@@ -9,7 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from "react-router-dom";
-import {regPublisherVerify,transTok} from "../js/index3"
+import transTok from "../js/transToken";
 
 import {
   Button,
@@ -372,7 +372,7 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
-                this.transTok(numberOfToken);
+                this.transTok(this.state.numberOfToken);
 
               }}
               color="primary"
