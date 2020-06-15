@@ -22,8 +22,38 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link } from "react-router-dom"
 
 export default class QuestionsCard extends React.Component {
+ 
 
-
+    async componentWillMount() {
+      await this.loadWeb3()
+      await this.loadBlockchainData()
+    }
+  
+    async loadWeb3() {
+      if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum)
+        await window.ethereum.enable()
+      }
+      else if (window.web3) {
+        window.web3 = new Web3(window.web3.currentProvider)
+      }
+      else {
+        window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      }
+    }
+  
+    async loadBlockchainData() {
+  
+      const web3 = window.web3
+  
+      const accounts = await web3.eth.getAccounts()
+      this.setState({ account: accounts[0], loader: true })
+      const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
+      this.setState({ ipfscontract })
+  
+      var account = await web3.eth.getAccounts()
+      var fromAcc = account.toString();
+    }
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +61,7 @@ export default class QuestionsCard extends React.Component {
       ethFiddleLink: "",
       ipfscontract: null,
       web3: null,
+      account:null
     }
   }
   captureFile = (event) => {
@@ -41,17 +72,15 @@ export default class QuestionsCard extends React.Component {
     reader.onloadend = () => {
       this.setState({ buffer: Buffer(reader.result) })
     }
+  }
 
-    onSubmit = (event) => {
+    onSubmit = () => {
       // console.log(this.state.contract);
       ipfs.add(this.state.buffer, (error, result) => {
         var today = new Date();
-        const web3 = window.web3
-        const accounts =  web3.eth.getAccounts()
-        this.setState({ account: accounts[0], loader: true })
-        const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
-        this.setState({ ipfscontract })
-        this.state.ipfscontract.methods.solverUploadSol(this.props.data.question, result[0].hash, this.state.ethFiddleLink).send({ from: this.state.account }).then((r) => {
+        
+        
+        this.state.ipfscontract.methods.solverUploadSol(this.props.data.question, result[0].hash, this.state.ethFiddleLink).send({ from: this.state.account}).then((r) => {
 
           // return window.location.reload();
           // this.setState({})
@@ -66,7 +95,7 @@ export default class QuestionsCard extends React.Component {
 
     }
 
-  }
+  
   render() {
     return (
       <Card style={{ borderRadius: 10 }} >
@@ -179,8 +208,9 @@ export default class QuestionsCard extends React.Component {
           </Button>
             <Button
               onClick={() => {
-                { this.onSubmit() }
+                 
                 this.setState({ solveDialog: false });
+                this.onSubmit() ;
               }}
               color="primary"
               autoFocus
