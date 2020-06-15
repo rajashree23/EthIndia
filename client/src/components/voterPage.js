@@ -52,7 +52,7 @@ export default class VoterPage extends React.Component {
 
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
-    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x33d85650d800b63ad583bcfaf78d64fe218fc56d")
     this.setState({ ipfscontract })
 
     var account = await web3.eth.getAccounts()
@@ -60,8 +60,7 @@ export default class VoterPage extends React.Component {
     var i;
     var solutions = [];
     var temp = {};
-    const len = 2;
-    //await this.state.ipfscontract.methods.getSolutionLinkLen(this.props.location.state.data.question).call({ from: fromAcc });
+    const len = await this.state.ipfscontract.methods.getSolverSolutionLinks(this.props.location.state.data.question).call({ from: fromAcc });
     for (i = 0; i < len; i++) {
       const sollink = await this.state.ipfscontract.methods.solutionLinkList(this.props.location.state.data.question, i).call({ from: fromAcc });
       const readme = await this.state.ipfscontract.methods.solutionLinkDetails(sollink).call({ from: fromAcc });
@@ -85,16 +84,16 @@ export default class VoterPage extends React.Component {
     }
   }
 
-  Agree = () => {
-    this.state.ipfscontract.methods.agree().send({ from: this.state.account }).then((r) => {
+  onAgree = ( sol) => {
+    this.state.ipfscontract.methods.agree(sol).send({ from: this.state.account }).then((r) => {
 
       return window.location.reload();
       // this.setState({})
 
     })
   }
-  Disgree = () => {
-    this.state.ipfscontract.methods.disgree().send({ from: this.state.account }).then((r) => {
+  onDisgree = ( sol) => {
+    this.state.ipfscontract.methods.disgree(sol).send({ from: this.state.account }).then((r) => {
 
       return window.location.reload();
       // this.setState({})
@@ -174,24 +173,24 @@ export default class VoterPage extends React.Component {
                       <Grid container spacing={2}>
                         <Grid item xs={4} md={4}>
                           <Typography variant="h6"  >
-                            {"Solver Address"}
+                            {s.solverAddress}
                           </Typography>
                         </Grid>
                         <Grid item xs={4} md={4}>
                           <Typography variant="h6" >
-                            {"Solution Link"}
+                            {s.solutionLink}
                           </Typography>
                           <Typography variant="h6" >
-                            {"ReadMe File "}
+                            {s.readMe}
                           </Typography>
                         </Grid>
                         <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
-                          <IconButton onClick={this.onAgree}>
+                          <IconButton onClick={this.onAgree(s.sollink)}>
                             <Icon>
                               thumb_up_alt
                       </Icon>
                           </IconButton>
-                          <IconButton onClick={this.onDisagree}>
+                          <IconButton onClick={this.onDisagree(s.sollink)}>
                             <Icon>
                               thumb_down_alt
                       </Icon>

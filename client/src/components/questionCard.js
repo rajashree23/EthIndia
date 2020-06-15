@@ -48,7 +48,7 @@ export default class QuestionsCard extends React.Component {
   
       const accounts = await web3.eth.getAccounts()
       this.setState({ account: accounts[0], loader: true })
-      const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
+      const ipfscontract = new web3.eth.Contract(ipfsABI, "0x33d85650d800b63ad583bcfaf78d64fe218fc56d")
       this.setState({ ipfscontract })
   
       var account = await web3.eth.getAccounts()
