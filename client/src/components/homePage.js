@@ -139,7 +139,7 @@ export default class HomePage extends React.Component {
         if(details[3]=="0x0000000000000000000000000000000000000000")
          {  
               //send voting details and call for winning solver address
-              const sollinkslen = await this.state.ipfscontract.methods.questionSolverSolutionLinks(ques).call({ from: fromAcc });
+              const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
               var max=0;
               var sol=[];
               var ressolver="";
@@ -154,12 +154,7 @@ export default class HomePage extends React.Component {
                  }
               } 
            
-              this.state.ipfscontract.methods.setResult(ques, sol[1]).send({ from: this.state.account }).then((r) => {
-
-                console.log("result set");
-                // this.setState({})
-        
-              })
+             max =  await this.state.ipfscontract.methods.setResult(ques,ressolver).call({from:fromAcc});
          }
         
           
