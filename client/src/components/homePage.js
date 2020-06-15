@@ -32,7 +32,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Loader from "./loader";
 import SnackBar from "./snackbar";
 
-//var regPublisherVerify=require("../js/index")
+
 
 
 
@@ -65,23 +65,14 @@ export default class HomePage extends React.Component {
   async loadBlockchainData() {
 
     const web3 = window.web3
-    // Load account
+
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
     const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
     this.setState({ ipfscontract })
     const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
     this.setState({ rolescontract })
-    // const networkId = await web3.eth.net.getId()
-    // const networkData = IPFS.networks[networkId]
-    // if (networkData) {
-    //   const contract = new web3.eth.Contract(IPFS.abi, 0x7993d027e47b2d2377543c305d9114bd3959845f)
-    //   this.setState({ contract })
-    //   // const memeHash = await contract.methods.get().call()
-    //   // this.setState({ memeHash })
-    // } else {
-    //   window.alert('Smart contract not deployed to detected network.')
-    // }
+
     var account = await web3.eth.getAccounts()
     var fromAcc = account.toString();
     var role = await rolescontract.methods.verifyPublisher().call({ from: fromAcc });
@@ -105,19 +96,11 @@ export default class HomePage extends React.Component {
     for (i = len - 1; i >= 0; i--) {
       const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call({ from: fromAcc });
 
-      // ipfs.get(ques, function (err, files) {
-      //   files.forEach((file) => {
 
-      //     var contents = new TextDecoder("utf-8").decode(file.content);
-      //     // console.log(contents);
-      //     cont.push(contents);
-      //   })
-      // })
 
       const details = await this.state.ipfscontract.methods.displayQuestionDetails(ques).call({ from: fromAcc });
       const seconds = new Date().getTime() / 1000;
-      //  this.setState({ c: cont },function(){
-      // console.log(this.state.c);
+
 
 
       var temp = {};
@@ -126,33 +109,30 @@ export default class HomePage extends React.Component {
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
       }
       else {
-        
-        if(details[3]=="0x0000000000000000000000000000000000000000")
-         {  
-              //send voting details and call for winning solver address
-              const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
-              var max=0;
-              
-              var ressolver="";
-              for(i=0;i<sollinkslen;i++)
-              {
-                const sol = await this.state.ipfscontract.methods.getSolutionLink(i,ques).call({from:fromAcc});
-                 const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({from:fromAcc});
-                 if(res>max)
-                 {
-                   max=res;
-                   ressolver=sol[1];
-                 }
-              } 
-           
-             max =  await this.state.ipfscontract.methods.setResult(ques,ressolver).call({from:fromAcc});
-         }
-        
-          
-        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
-      
 
-        //send voting details and call for winning solver address
+        if (details[3] == "0x0000000000000000000000000000000000000000") {
+
+          const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
+          var max = 0;
+
+          var ressolver = "";
+          for (i = 0; i < sollinkslen; i++) {
+            const sol = await this.state.ipfscontract.methods.getSolutionLink(i, ques).call({ from: fromAcc });
+            const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({ from: fromAcc });
+            if (res > max) {
+              max = res;
+              ressolver = sol[1];
+            }
+          }
+
+          max = await this.state.ipfscontract.methods.setResult(ques, ressolver).call({ from: fromAcc });
+        }
+
+
+        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
+
+
+
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": "abcdlkjdwjeiu2193" }
       }
       questions.push(temp);
@@ -187,20 +167,7 @@ export default class HomePage extends React.Component {
     }
   }
 
-  // getRoles = () => {
-  //   if (this.state.roleValue === "Publisher") {
-  //    // regPublisherVerify();
-  //   }
-  //   // else if(this.state.roleValue==="Voter")
-  //   //  {
-  //   //   regVoterVerify();
-  //   //  }
-  //   //  else if(this.state.roleValue==="Voter")
-  //   //  { 
-  //   //    regSolverVerify();
 
-  //   //  }
-  // }
 
   captureFile = (event) => {
     event.preventDefault()
@@ -252,7 +219,7 @@ export default class HomePage extends React.Component {
               <div style={{ float: "right" }}>
                 <Button style={btn}>Home</Button>
 
-                <Link to="/get_roles" style={{textDecoration:"none"}}>
+                <Link to="/get_roles" style={{ textDecoration: "none" }}>
                   <Button
                     style={btn}
                   >
@@ -334,7 +301,7 @@ export default class HomePage extends React.Component {
             </Grid>
           </Grid>
         </Grid>
-       
+
         <Dialog
           open={this.state.tranferDialog}
           aria-labelledby="alert-dialog-title"

@@ -47,37 +47,41 @@ export default class VoterPage extends React.Component {
   }
 
   async loadBlockchainData() {
-   
+
     const web3 = window.web3
-    // Load account
+
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
     const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
     this.setState({ ipfscontract })
-    
+
     var account = await web3.eth.getAccounts()
     var fromAcc = account.toString();
-     var i;
-     var solutions=[];
-     var temp={};
-     const len = await this.state.ipfscontract.methods.getSolutionLinkLen().call({ from: fromAcc });
-     for(i=0;i<len;i++)
-     {
-       const sollink = await this.state.ipfscontract.methods.solutionLinkList(this.props.location.state.data.question,i).call({ from: fromAcc });
-       const readme = await this.state.ipfscontract.methods.solutionLinkDetails(sollink).call({ from: fromAcc });
-       temp = {"solverAddress":readme[0],"solutionLink":sollink,"readMe":readme[1]};
-       solutions.push(temp);
-     }
-    this.setState({solutions:solutions});
+    var i;
+    var solutions = [];
+    var temp = {};
+    const len = 2;
+    //await this.state.ipfscontract.methods.getSolutionLinkLen(this.props.location.state.data.question).call({ from: fromAcc });
+    for (i = 0; i < len; i++) {
+      const sollink = await this.state.ipfscontract.methods.solutionLinkList(this.props.location.state.data.question, i).call({ from: fromAcc });
+      const readme = await this.state.ipfscontract.methods.solutionLinkDetails(sollink).call({ from: fromAcc });
+      temp = { "solverAddress": readme[0], "solutionLink": sollink, "readMe": readme[1] };
+      solutions.push(temp);
+    }
+    this.setState({ solutions: solutions });
 
   }
 
   constructor(props) {
     super(props);
     this.state = {
+      ipfscontract: null,
+      web3: null,
+      account: null,
       roleValue: "",
       rolesDialog: true,
-      solutions:[]
+      solutions: [],
+
     }
   }
 
@@ -161,39 +165,49 @@ export default class VoterPage extends React.Component {
             </Card>
           </Grid>
           <Grid item xs={12} md={10}>
-            <Card style={{ borderRadius: 10 }} >
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item xs={4} md={4}>
-                    <Typography variant="h6"  >
-                      {"Solver Address"}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4} md={4}>
-                    <Typography variant="h6" >
-                      {"Solution Link"}
-                    </Typography>
-                    <Typography variant="h6" >
-                      {"ReadMe File "}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
-                    <IconButton onClick={this.onAgree}>
-                      <Icon>
-                        thumb_up_alt
-                      </Icon>
-                    </IconButton>
-                    <IconButton onClick={this.onDisagree}>
-                      <Icon>
-                        thumb_down_alt
-                      </Icon>
-                    </IconButton>
 
-                  </Grid>
+            {this.state.solutions.length > 0 && <span>
+              {this.state.solutions.map(s => (
+                <div>
+                  <Card style={{ borderRadius: 10 }} >
+                    <CardContent>
+                      <Grid container spacing={2}>
+                        <Grid item xs={4} md={4}>
+                          <Typography variant="h6"  >
+                            {"Solver Address"}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4} md={4}>
+                          <Typography variant="h6" >
+                            {"Solution Link"}
+                          </Typography>
+                          <Typography variant="h6" >
+                            {"ReadMe File "}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
+                          <IconButton onClick={this.onAgree}>
+                            <Icon>
+                              thumb_up_alt
+                      </Icon>
+                          </IconButton>
+                          <IconButton onClick={this.onDisagree}>
+                            <Icon>
+                              thumb_down_alt
+                      </Icon>
+                          </IconButton>
 
-                </Grid>
-              </CardContent>
-            </Card>
+                        </Grid>
+
+                      </Grid>
+                    </CardContent>
+                  </Card>
+
+                  <br />
+                </div>
+
+              ))}</span>}
+
           </Grid>
         </Grid>
       </div>

@@ -37,15 +37,7 @@ getRoles = () => {
        
      }
     }
-    // else if(this.state.roleValue==="Voter")
-    //  {
-    //   regVoterVerify();
-    //  }
-    //  else if(this.state.roleValue==="Voter")
-    //  { 
-    //    regSolverVerify();
-
-    //  }
+   
   }
 
 
