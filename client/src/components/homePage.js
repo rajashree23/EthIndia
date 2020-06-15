@@ -171,7 +171,7 @@ export default class HomePage extends React.Component {
       ipfscontract: null,
       web3: null,
       paymentDialog: false,
-      roleValue: "",
+      roleValue: "Solver",
       c: [],
       postReward: "",
       buffer: null,
