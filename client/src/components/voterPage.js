@@ -17,7 +17,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import { ipfsABI } from "../js/IPFS";
+import Web3 from "web3";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -27,6 +28,41 @@ const btn = {
 }
 export default class VoterPage extends React.Component {
 
+  async componentWillMount() {
+    await this.loadWeb3()
+    await this.loadBlockchainData()
+  }
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+    }
+  }
+
+  async loadBlockchainData() {
+   
+    const web3 = window.web3
+    // Load account
+    const accounts = await web3.eth.getAccounts()
+    this.setState({ account: accounts[0], loader: true })
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
+    this.setState({ ipfscontract })
+    
+    var account = await web3.eth.getAccounts()
+    var fromAcc = account.toString();
+    
+     
+
+
+
+  }
 
   constructor(props) {
     super(props);
