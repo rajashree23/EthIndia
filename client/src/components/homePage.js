@@ -8,7 +8,8 @@ import { rolesABI } from "../js/roles";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-//import regPublisherVerify from "../js/index3"
+import { Link } from "react-router-dom";
+// import regPublisherVerify from "../js/index3"
 
 import {
   Button,
@@ -66,7 +67,7 @@ export default class HomePage extends React.Component {
     const web3 = window.web3
     // Load account
     const accounts = await web3.eth.getAccounts()
-    this.setState({ account: accounts[0] })
+    this.setState({ account: accounts[0], loader: true })
     const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
     this.setState({ ipfscontract })
     const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
@@ -96,12 +97,6 @@ export default class HomePage extends React.Component {
           this.setState({ roleValue: "Solver" });
       }
     }
-
-
-
-
-
-
     var questions = [];
     const len = await this.state.ipfscontract.methods.getQuestionListLength().call({ from: fromAcc });
     var i;
@@ -116,10 +111,6 @@ export default class HomePage extends React.Component {
       //     var contents = new TextDecoder("utf-8").decode(file.content);
       //     // console.log(contents);
       //     cont.push(contents);
-
-
-
-
       //   })
       // })
 
@@ -161,20 +152,16 @@ export default class HomePage extends React.Component {
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
       
 
-        }
+        //send voting details and call for winning solver address
+        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": "abcdlkjdwjeiu2193" }
+      }
       questions.push(temp);
-
-
-
-
-
     }
     this.setState({ questions: questions });
     var abc = this.state.finalobj;
     abc.cardofquestion = questions;
     abc.type = this.state.roleValue;
     this.setState({ finalobj: abc, loader: false, openSnackBar: true, messageSnackBar: "Entries Found" });
-
   }
   constructor(props) {
     super(props);
@@ -193,7 +180,9 @@ export default class HomePage extends React.Component {
       finalobj: { cardofquestion: [], type: "" },
       loader: true,
       openSnackBar: false,
-      messageSnackBar: ""
+      messageSnackBar: "",
+      tranferDialog: false,
+      numberOfToken: ""
 
     }
   }
@@ -262,16 +251,17 @@ export default class HomePage extends React.Component {
           </Typography>
               <div style={{ float: "right" }}>
                 <Button style={btn}>Home</Button>
-                <Button style={btn} onClick={() => {
-                  this.setState({
-                    paymentDialog: true
-                  })
-                }}>
-                  Get Roles
+
+                <Link to="/get_roles" style={{textDecoration:"none"}}>
+                  <Button
+                    style={btn}
+                  >
+                    Get Roles
                   </Button>
+                </Link>
                 <Button style={btn} onClick={() => {
                   this.setState({
-                    paymentDialog: true
+                    tranferDialog: true
                   })
                 }}>
                   Transfer To Matic
@@ -344,13 +334,13 @@ export default class HomePage extends React.Component {
             </Grid>
           </Grid>
         </Grid>
+       
         <Dialog
-          style={{ backgroundColor: "blue" }}
-          open={this.state.paymentDialog}
+          open={this.state.tranferDialog}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Please Select your role and Make Payment"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Please Enter Number of Tokens you want to get"}</DialogTitle>
           <Grid container>
             <DialogContent>
               <Grid container item xs={12} md={12}>
@@ -359,15 +349,11 @@ export default class HomePage extends React.Component {
                   <TextField
                     fullWidth
                     variant="outlined"
-                    value={this.state.roleValue}
-                    select
-                    label={"Select Role"}
-                    onChange={(e) => { this.setState({ roleValue: e.target.value }) }}
-                  >
-                    <MenuItem value="Publisher">{"Publisher"}</MenuItem>
-                    <MenuItem value="Voter">{"Voter"}</MenuItem>
-                    <MenuItem value="Solver">{"Solver"}</MenuItem>
-                  </TextField>
+                    type="number"
+                    value={this.state.numberOfToken}
+                    label={"Number of Tokens"}
+                    onChange={(e) => { this.setState({ numberOfToken: e.target.value }) }}
+                  />
                 </Grid>
               </Grid>
             </DialogContent>
@@ -375,8 +361,8 @@ export default class HomePage extends React.Component {
           <DialogActions>
             <Button
               onClick={() => {
-                this.setState({ paymentDialog: false });
-                this.loadBlockchainData()
+                this.setState({ tranferDialog: false });
+                // this.loadBlockchainData()
               }}
               color="primary"
               variant="outlined"
@@ -385,14 +371,13 @@ export default class HomePage extends React.Component {
           </Button>
             <Button
               onClick={() => {
-                this.setState({ paymentDialog: false });
-                this.getRoles()
+                this.setState({ tranferDialog: false });
               }}
               color="primary"
               autoFocus
               variant="outlined"
             >
-              Submit
+              Get Tokens
           </Button>
           </DialogActions>
         </Dialog>
