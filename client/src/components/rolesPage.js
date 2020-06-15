@@ -19,25 +19,35 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default class MaticPage extends React.Component {
 
-  
+
 
   constructor(props) {
     super(props);
     this.state = {
       roleValue: "",
       rolesDialog: true,
-      
+      redirect: "",
+
     }
   }
 
-getRoles = () => {
+  getRoles = () => {
     if (this.state.roleValue === "Publisher") {
-     var a=regPublisherVerify();
-     if(a===true){
-       
-     }
+      var a = regPublisherVerify();
+      this.setState({ redirect: a })
     }
-   
+
+    // else if(this.state.roleValue==="Voter")
+    //  {
+    //   var a=regVoterVerify();
+    //   this.setState({redirect:a}),
+    //  }
+    //  else if(this.state.roleValue==="Voter")
+    //  { 
+          // var a=regSolverVerify();
+          // this.setState({redirect:a}),
+      
+    //  }
   }
 
 

@@ -1,5 +1,7 @@
 import React from "react";
-
+import { ipfsABI } from "../js/IPFS";
+import ipfs from "../js/ipfshttp"
+import Web3 from "web3";
 import {
   Button,
   IconButton,
@@ -26,8 +28,44 @@ export default class QuestionsCard extends React.Component {
     super(props);
     this.state = {
       solveDialog: false,
-      ethFiddleLink: ""
+      ethFiddleLink: "",
+      ipfscontract: null,
+      web3: null,
     }
+  }
+  captureFile = (event) => {
+    event.preventDefault()
+    const file = event.target.files[0]
+    const reader = new window.FileReader()
+    reader.readAsArrayBuffer(file)
+    reader.onloadend = () => {
+      this.setState({ buffer: Buffer(reader.result) })
+    }
+
+    onSubmit = (event) => {
+      // console.log(this.state.contract);
+      ipfs.add(this.state.buffer, (error, result) => {
+        var today = new Date();
+        const web3 = window.web3
+        const accounts =  web3.eth.getAccounts()
+        this.setState({ account: accounts[0], loader: true })
+        const ipfscontract = new web3.eth.Contract(ipfsABI, "0x7993d027e47b2d2377543c305d9114bd3959845f")
+        this.setState({ ipfscontract })
+        this.state.ipfscontract.methods.solverUploadSol(this.props.data.question, result[0].hash, this.state.ethFiddleLink).send({ from: this.state.account }).then((r) => {
+
+          // return window.location.reload();
+          // this.setState({})
+
+        })
+        if (error)
+          console.log(error);
+
+
+      })
+
+
+    }
+
   }
   render() {
     return (
@@ -123,7 +161,7 @@ export default class QuestionsCard extends React.Component {
                 <Grid item xs={6} md={6}>
                   Enter ReadMe File
                   <br />
-                  <input type="file" />
+                  <input type="file" onChange={this.captureFile} />
                 </Grid>
               </Grid>
             </DialogContent>
@@ -141,6 +179,7 @@ export default class QuestionsCard extends React.Component {
           </Button>
             <Button
               onClick={() => {
+                { this.onSubmit() }
                 this.setState({ solveDialog: false });
               }}
               color="primary"
