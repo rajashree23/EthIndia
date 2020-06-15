@@ -84,22 +84,22 @@ export default class VoterPage extends React.Component {
     }
   }
 
-  onAgree = ( sol) => {
-    this.state.ipfscontract.methods.agree(sol).send({ from: this.state.account }).then((r) => {
+  // onAgree = ( sol) => {
+  //   this.state.ipfscontract.methods.agree(sol).send({ from: this.state.account }).then((r) => {
 
-      return window.location.reload();
-      // this.setState({})
+  //     
+  //     // this.setState({})
 
-    })
-  }
-  onDisgree = ( sol) => {
-    this.state.ipfscontract.methods.disgree(sol).send({ from: this.state.account }).then((r) => {
+  //   })
+  // }
+  // onDisgree = ( sol) => {
+  //   this.state.ipfscontract.methods.disgree(sol).send({ from: this.state.account }).then((r) => {
 
-      return window.location.reload();
-      // this.setState({})
+  //     
+  //     // this.setState({})
 
-    })
-  }
+  //   })
+  // }
   render() {
     console.log(this.props)
     return (
@@ -171,26 +171,30 @@ export default class VoterPage extends React.Component {
                   <Card style={{ borderRadius: 10 }} >
                     <CardContent>
                       <Grid container spacing={2}>
-                        <Grid item xs={4} md={4}>
-                          <Typography variant="h6"  >
-                            {s.solverAddress}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={4} md={4}>
-                          <Typography variant="h6" >
-                            {s.solutionLink}
-                          </Typography>
-                          <Typography variant="h6" >
-                            {s.readMe}
-                          </Typography>
-                        </Grid>
+                      <Grid item xs={10} md={10}>
+              <Typography variant="title" color="inherit" >
+                {"Public Address :-" + s.solverAddress}
+              </Typography>
+            </Grid>
+            <Grid item xs={2} md={2}>
+              <Typography variant="subheading" color="inherit" >
+                {"Ethfiddle Link :-" + s.solutionLink}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <Typography color="textSecondary" variant="h6" gutterBottom>
+                <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + s.readMe} target="_blank" >
+                  {s.readMe}  </a>
+              </Typography>
+
+            </Grid>
                         <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
-                          <IconButton onClick={this.onAgree(s.solutionLink)}>
+                          <IconButton >
                             <Icon>
                               thumb_up_alt
                       </Icon>
                           </IconButton>
-                          <IconButton onClick={this.onDisagree(s.solutionLink)}>
+                          <IconButton >
                             <Icon>
                               thumb_down_alt
                       </Icon>
