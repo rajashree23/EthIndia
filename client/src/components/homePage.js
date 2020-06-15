@@ -362,7 +362,7 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
-                // this.loadBlockchainData()
+                this.loadBlockchainData()
               }}
               color="primary"
               variant="outlined"
@@ -372,7 +372,7 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
-                this.transTok(this.state.numberOfToken);
+                transTok(this.state.numberOfToken);
 
               }}
               color="primary"
