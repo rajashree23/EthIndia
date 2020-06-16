@@ -177,8 +177,10 @@ export default class VoterPage extends React.Component {
                           </Typography>
                         </Grid>
                         <Grid item xs={2} md={2}>
-                          <Typography variant="subheading" color="inherit" >
-                            {"Ethfiddle Link :-" + s.solutionLink}
+                        <Typography color="textSecondary" variant="h6" gutterBottom>
+                            <Typography color="textSecondary" variant="h6" gutterBottom>{"Ethfiddle Link :-"}</Typography>
+                            <a style={{ fontSize: 15 }} href={ s.solutionLink} target="_blank" >
+                              {s.solutionLink}  </a>
                           </Typography>
                         </Grid>
                         <Grid item xs={12} md={12}>
