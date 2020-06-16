@@ -15,11 +15,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import SnackBar from "./snackbar";
 
 export default class MaticPage extends React.Component {
 
-
+componentDidMount(){
+  this.setState({ openSnackBar: true, messageSnackBar: "Change Network to Matic" });
+}
 
   constructor(props) {
     super(props);
@@ -27,28 +29,30 @@ export default class MaticPage extends React.Component {
       roleValue: "",
       rolesDialog: true,
       redirect: "",
+      openSnackBar: false,
+      messageSnackBar: "",
 
     }
   }
 
-  getRoles = () => {
-    if (this.state.roleValue === "Publisher") {
-      var a = regPublisherVerify();
-      this.setState({ redirect: a })
-    }
+  // getRoles = () => {
+  //   if (this.state.roleValue === "Publisher") {
+  //     var a = regPublisherVerify();
+  //     this.setState({ redirect: a })
+  //   }
 
-    // else if(this.state.roleValue==="Voter")
-    //  {
-    //   var a=regVoterVerify();
-    //   this.setState({redirect:a}),
-    //  }
-    //  else if(this.state.roleValue==="Voter")
-    //  { 
-    // var a=regSolverVerify();
-    // this.setState({redirect:a}),
+  //   // else if(this.state.roleValue==="Voter")
+  //   //  {
+  //   //   var a=regVoterVerify();
+  //   //   this.setState({redirect:a}),
+  //   //  }
+  //   //  else if(this.state.roleValue==="Voter")
+  //   //  { 
+  //   // var a=regSolverVerify();
+  //   // this.setState({redirect:a}),
 
-    //  }
-  }
+  //   //  }
+  // }
 
 
 
@@ -56,6 +60,7 @@ export default class MaticPage extends React.Component {
 
   render() {
     return (
+      <div>
       <Dialog
 
         open={this.state.rolesDialog}
@@ -89,7 +94,7 @@ export default class MaticPage extends React.Component {
           <Button
             onClick={() => {
               this.setState({ rolesDialog: false });
-              this.getRoles();
+              // this.getRoles();
             }}
             color="primary"
             autoFocus
@@ -99,7 +104,11 @@ export default class MaticPage extends React.Component {
       </Button>
         </DialogActions>
       </Dialog>
-
+      <SnackBar
+          open={this.state.openSnackBar}
+          message={this.state.messageSnackBar}
+        />
+      </div>
     )
   }
 }
