@@ -94,8 +94,8 @@ export default async function regPublisherVerify() {
     const bal = await checkBal()
     const fromAcc = await getAccount()
     console.log(fromAcc)
-    if (bal >= 0.00001) {
-      const out = await tokenTransDeployer(0.00001)//in matic network
+    if (bal >= 0.000002) {
+      const out = await tokenTransDeployer(0.000002)//in matic network
       //Delay to change network from Matic to Ropston
       console.log(out)
       if (out) {//in ropston network
@@ -105,10 +105,10 @@ export default async function regPublisherVerify() {
         window.ethereum.autoRefreshOnNetworkChange = false;
         console.log("network changed");
         await delay (5000)
-        const x = await contract.methods.addPublisher().send({ from: fromAcc ,chainId: 3});
+        const x = await contract.methods.addSolver().send({ from: fromAcc ,chainId: 3});
         console.log(`${x} from x`);
         
-        y = await contract.methods.verifyPublisher().call({ from: fromAcc ,chainId: 3});
+        y = await contract.methods.verifySolver().call({ from: fromAcc ,chainId: 3});
         console.log(`${y} from y`);
       }
       else

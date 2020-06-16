@@ -1,5 +1,7 @@
 import React from "react";
 import regPublisherVerify from "../js/regPublisher"
+import regVoterVerify from "../js/regVoter"
+import regSolverVerify from "../js/regSolver"
 
 import {
   Button,
@@ -35,24 +37,24 @@ componentDidMount(){
     }
   }
 
-  // getRoles = () => {
-  //   if (this.state.roleValue === "Publisher") {
-  //     var a = regPublisherVerify();
-  //     this.setState({ redirect: a })
-  //   }
+  getRoles = () => {
+    if (this.state.roleValue === "Publisher") {
+      var a = regPublisherVerify();
+      this.setState({ redirect: a })
+    }
+  
+    else if(this.state.roleValue==="Voter")
+     {
+      var a=regVoterVerify();
+      this.setState({redirect:a})
+     }
+     else if(this.state.roleValue==="Voter")
+     { 
+      var a=regSolverVerify();
+      this.setState({redirect:a})
 
-  //   // else if(this.state.roleValue==="Voter")
-  //   //  {
-  //   //   var a=regVoterVerify();
-  //   //   this.setState({redirect:a}),
-  //   //  }
-  //   //  else if(this.state.roleValue==="Voter")
-  //   //  { 
-  //   // var a=regSolverVerify();
-  //   // this.setState({redirect:a}),
-
-  //   //  }
-  // }
+     }
+  }
 
 
 
@@ -94,7 +96,7 @@ componentDidMount(){
           <Button
             onClick={() => {
               this.setState({ rolesDialog: false });
-              // this.getRoles();
+               this.getRoles();
             }}
             color="primary"
             autoFocus

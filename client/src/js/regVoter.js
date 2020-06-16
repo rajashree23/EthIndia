@@ -99,23 +99,24 @@ export default async function regPublisherVerify() {
       //Delay to change network from Matic to Ropston
       console.log(out)
       if (out) {//in ropston network
+        
         await delay(5000)
         console.log("Change to Ropstone")
         await delay(5000)
         window.ethereum.autoRefreshOnNetworkChange = false;
         console.log("network changed");
         await delay (5000)
-        const x = await contract.methods.addPublisher().send({ from: fromAcc ,chainId: 3});
+        const x = await contract.methods.addVoter().send({ from: fromAcc ,chainId: 3});
         console.log(`${x} from x`);
         
-        y = await contract.methods.verifyPublisher().call({ from: fromAcc ,chainId: 3});
+        y = await contract.methods.verifyVoter().call({ from: fromAcc ,chainId: 3});
         console.log(`${y} from y`);
       }
       else
         console.log("Transaction Failed")
     }
     else {
-      console.log("Insufficient Balance to be Publisher")
+      console.log("Insufficient Balance to be Voter")
     }
   }
 

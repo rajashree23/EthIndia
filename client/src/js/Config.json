@@ -2,6 +2,9 @@
     "network":"testnet",
     "version": "v3",
 
+    "ROOTCHAIN_ADDRESS": "0x82a72315E16cE224f28E1F1fB97856d3bF83f010",
+    "SYNCER_URL": "https://testnetv3-syncer.api.matic.network/api/v1",
+    "WATCHER_URL": "https://testnetv3-watcher.api.matic.network/api/v1",
 
     "privateKey": "0xf9cb3dbc144977b326160a3302e54c5117b93a094116545102f6c1cc88cea7bb", 
     "from": "0xD6aaCEd767524B1CAc368EC732dB37EC9dB268dB",
