@@ -88,7 +88,13 @@ export default async function regPublisherVerify() {
     else return false
   }
 
-
+//Instructions
+//Open roles page
+//open console
+//Change to matic network
+//It will show you to chnage to ropstone
+//change to ropstone
+//
   async function reg() {
     window.ethereum.autoRefreshOnNetworkChange = false;
     const bal = await checkBal()
