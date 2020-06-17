@@ -7,7 +7,7 @@ import { rolesABI } from "../js/roles";
 
 const delay = require('delay');
 const Network = require("@maticnetwork/meta/network");
-const Matic = require("@maticnetwork/maticjs");
+const Matic = require("@maticnetwork/maticjs")
 const config = require("./Config.json");
 
 export default async function transTok(k){

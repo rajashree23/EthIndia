@@ -307,7 +307,7 @@ export default class HomePage extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Please Enter Number of Tokens you want to transfer"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Please enter number of tokens you want to transfer(in wei)"}</DialogTitle>
           <Grid container>
             <DialogContent>
               <Grid container item xs={12} md={12}>
@@ -339,8 +339,12 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
+<<<<<<< HEAD
                 console.log(this.state.numberOfToken);
                 transTok(this.state.numberOfToken);
+=======
+                // transTok(this.state.numberOfToken);
+>>>>>>> 96b234f1a6d72bbc935a512f75c4678ff85a005b
 
               }}
               color="primary"

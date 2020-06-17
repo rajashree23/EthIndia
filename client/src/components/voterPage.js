@@ -23,6 +23,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from "react-router-dom";
+import Loader from "./loader";
 const btn = {
   color: "white"
 }
@@ -67,7 +68,7 @@ export default class VoterPage extends React.Component {
       temp = { "solverAddress": readme[0], "solutionLink": sollink, "readMe": readme[1] };
       solutions.push(temp);
     }
-    this.setState({ solutions: solutions });
+    this.setState({ solutions: solutions, loader: false });
 
   }
 
@@ -80,6 +81,7 @@ export default class VoterPage extends React.Component {
       roleValue: "",
       rolesDialog: true,
       solutions: [],
+      loader: true
 
     }
   }
@@ -134,7 +136,7 @@ export default class VoterPage extends React.Component {
           </AppBar>
           <Grid item xs={12} md={12} style={{ textAlign: "center" }}>
             <Typography variant="h4" style={{ color: "blue" }} >
-              {"Solutions and their Solvers"}
+              {"Problem Statement"}
             </Typography>
           </Grid>
           <Grid item xs={12} md={10}>
@@ -163,6 +165,11 @@ export default class VoterPage extends React.Component {
               </CardContent>
             </Card>
           </Grid>
+          <Grid item xs={12} md={12} style={{ textAlign: "center" }}>
+            <Typography variant="h4" style={{ color: "blue" }} >
+              {"Solutions "}
+            </Typography>
+          </Grid>
           <Grid item xs={12} md={10}>
 
             {this.state.solutions.length > 0 && <span>
@@ -171,27 +178,31 @@ export default class VoterPage extends React.Component {
                   <Card style={{ borderRadius: 10 }} >
                     <CardContent>
                       <Grid container spacing={2}>
-                        <Grid item xs={10} md={10}>
+                        <Grid item xs={8} md={8}>
                           <Typography variant="title" color="inherit" >
                             {"Public Address :-" + s.solverAddress}
                           </Typography>
                         </Grid>
-                        <Grid item xs={2} md={2}>
-                        <Typography color="textSecondary" variant="h6" gutterBottom>
-                            <Typography color="textSecondary" variant="h6" gutterBottom>{"Ethfiddle Link :-"}</Typography>
-                            <a style={{ fontSize: 15 }} href={ s.solutionLink} target="_blank" >
+                        <Grid item xs={4} md={4} style={{ display: "inline-flex" }}>
+                          <Typography inline color="inherit" variant="title"
+                          >{"Ethfiddle Link :-"}
+                          </Typography>
+                          <Typography inline color="inherit" variant="title" >
+                            <a style={{ fontSize: 15 }} href={s.solutionLink} target="_blank" >
                               {s.solutionLink}  </a>
                           </Typography>
                         </Grid>
-                        <Grid item xs={12} md={12}>
-                          <Typography color="textSecondary" variant="h6" gutterBottom>
-                            <Typography color="textSecondary" variant="h6" gutterBottom>{"ReadMe :-"}</Typography>
+
+                        <Grid item xs={8} md={8} style={{ display: "inline-flex", paddingTop: 18 }}>
+
+                          <Typography inline color="inherit" variant="title">{"ReadMe :-"}</Typography>
+                          <Typography inline color="inherit" variant="title">
                             <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + s.readMe} target="_blank" >
                               {s.readMe}  </a>
                           </Typography>
 
                         </Grid>
-                        <Grid item xs={4} md={3} style={{ textAlign: "center" }}>
+                        <Grid item xs={4} md={4} style={{ textAlign: "center" }}>
                           <IconButton >
                             <Icon>
                               thumb_up_alt
@@ -216,6 +227,9 @@ export default class VoterPage extends React.Component {
 
           </Grid>
         </Grid>
+        {this.state.loader &&
+          <Loader />
+        }
       </div>
 
     )
