@@ -7,19 +7,13 @@ import { rolesABI } from "../js/roles";
 
 const delay = require('delay');
 const Network = require("@maticnetwork/meta/network");
-const Matic = require("@maticnetwork/maticjs").default;
+const Matic = require("@maticnetwork/maticjs");
 const config = require("./Config.json");
 
-
-
-
-
-
-
-
-
 export default async function transTok(k){
-    var amount = k;//req.body.value ; // amount in wei
+    //req.body.value ; // amount in wei
+    //console.log(amount)
+    console.log(k);
     async function loadWeb3() {
       if (window.ethereum) {
         window.web3 = new Web3(window.ethereum)
@@ -38,42 +32,55 @@ export default async function transTok(k){
     const contract = new window.web3.eth.Contract(rolesABI, contractAddress);
   
     const network = new Network(config.network, config.version); //network configuration
-    const MaticNetwork = network.Matic;
-    const MainNetwork = network.Main;
-  
-    const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
-    const Matic_Erc20Address = config.Matic_Erc20Address;
-    const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
-    const Matic_Erc721Address = config.Matic_Erc721Address;
-  
+const MaticNetwork = network.Matic;
+const MainNetwork = network.Main;
+
+const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
+const Matic_Erc20Address = config.Matic_Erc20Address;
+const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
+const Matic_Erc721Address = config.Matic_Erc721Address;
     //const from = account.toString(); // from address
   
     const matic = new Matic({
-      maticProvider: window.web3,
+      maticProvider:window.web3,
       parentProvider: window.web3,
-      rootChainAddress: config.ROOTCHAIN_ADDRESS,
-      syncerUrl: config.SYNCER_URL,
-      watcherUrl: config.WATCHER_URL,
-    })
+      rootChain: MainNetwork.Contracts.RootChain,
+      withdrawManager: MainNetwork.Contracts.WithdrawManagerProxy,
+      depositManager: MainNetwork.Contracts.DepositManagerProxy,
+      registry: MainNetwork.Contracts.Registry,
+    });
     async function init() {
       await matic.initialize();
-      await matic.setWallet(config.privateKey)
+      
     }
     init();
+
     async function getAccount() {
       var account = await window.web3.eth.getAccounts()
       console.log(account.toString())
       return account.toString()
     }
   
-  
+    async function trans(){
+      var amount = k.toString();
+      console.log(amount+" inside")
+      console.log("inside trans");
     var token = Ropsten_Erc20Address;
     var from =await getAccount()
-     const out1=await matic.approveERC20TokensForDeposit(token, amount, { from }) //to get approval from matic contract in Main chain
-      console.log(out1)
-    const out2=  await matic.depositERC20ForUser(token, from, amount, { from}) // Tokens released from the mainnet to the matic network
-      console.log(out2) 
-      
+    matic
+    .approveERC20TokensForDeposit(token, amount, {
+  from
+  })
+  .then(logs => console.log(logs.transactionHash))
+    .then(() => {
+      matic.depositERC20ForUser(token, from, amount, {
+  from
+  })
+  .then(logs => console.log(logs.transactionHash));
+})
+    }
+     
+     trans();
   }
   
   

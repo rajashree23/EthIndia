@@ -339,6 +339,7 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
+                console.log(this.state.numberOfToken);
                 transTok(this.state.numberOfToken);
 
               }}
