@@ -131,8 +131,8 @@ export default class QuestionsCard extends React.Component {
               onClick={() => { this.setState({ solveDialog: true }) }}
             >Solve</Button>
           }
-          {/* {
-            this.props.type === "Voter" && */}
+          {
+            this.props.type === "Voter" &&
           <Link
             style={{ textDecoration: "none" }}
             to={{
@@ -143,7 +143,7 @@ export default class QuestionsCard extends React.Component {
             }}>
             <Button color="primary" variant="outlined" size="small">Vote</Button>
           </Link>
-          {/* // } */}
+          }
 
 
           {/* <Button color="primary" variant="outlined" size="small"  onClick={() => { this.props.refresh  }}>Get Question</Button> */}
