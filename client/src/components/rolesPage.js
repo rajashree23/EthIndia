@@ -48,7 +48,7 @@ componentDidMount(){
       var a=regVoterVerify();
       this.setState({redirect:a})
      }
-     else if(this.state.roleValue==="Voter")
+     else if(this.state.roleValue==="Solver")
      { 
       var a=regSolverVerify();
       this.setState({redirect:a})
@@ -61,6 +61,10 @@ componentDidMount(){
 
 
   render() {
+
+    // if(redirect ===true){
+    //   <Render 
+    
     return (
       <div>
       <Dialog
