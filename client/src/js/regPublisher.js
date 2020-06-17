@@ -106,7 +106,7 @@ export default async function regPublisherVerify() {
       console.log(out)
       if (out) {//in ropston network
         await delay(5000)
-        console.log("Change to Ropstone")
+        console.log("Change to Ropsten")
         await delay(5000)
         window.ethereum.autoRefreshOnNetworkChange = false;
         console.log("network changed");
