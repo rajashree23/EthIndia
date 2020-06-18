@@ -46,14 +46,113 @@ const btn = {
 }
 
 export default class PublisherPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      questions: [{ question: "What does SIM stands for??", reward: "1200", Timestamp: "12 july 2020" }]
+
+  async componentDidMount() {
+    await this.loadWeb3()
+    await this.loadBlockchainData()
+  }
+  async componentWillReceiveProps(prev, next) {
+    this.setState({});
+    await this.loadBlockchainData()
+  }
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
   }
 
+  async loadBlockchainData() {
 
+    const web3 = window.web3
+
+    const accounts = await web3.eth.getAccounts()
+    this.setState({ account: accounts[0], loader: true })
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x33d85650d800b63ad583bcfaf78d64fe218fc56d")
+    this.setState({ ipfscontract })
+
+
+    var account = await web3.eth.getAccounts()
+    var fromAcc = account.toString();
+
+    var questions = [];
+    const len = await this.state.ipfscontract.methods.getIpfsQuestionLen().call({ from: fromAcc });
+    var i;
+
+    var cont = [];
+    for (i = len - 1; i >= 0; i--) {
+
+
+
+
+      const details = await this.state.ipfscontract.methods.publisherProfile(i).call({ from: fromAcc });
+     
+
+
+
+      var temp = {};
+
+
+
+
+      temp = { "question": details[0], "reward": details[1], "timestamp": details[2] }
+
+
+
+
+
+      questions.push(temp);
+    }
+    this.setState({ questions: questions });
+
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions: [],
+      solutions: []
+    }
+  }
+
+  viewSol = (ques) => {
+    var solutions = [];
+    const len = await this.state.ipfscontract.methods.getSoutionLinkLen(ques).call({ from: this.state.account});
+    var i;
+
+    
+    for (i = 0; i < len; i++) {
+
+
+
+
+      const details = await this.state.ipfscontract.methods.solutionLinkList(ques,i).call({ from: this.state.account });
+      const details1 = await this.state.ipfscontract.methods.solutionLinkDetails(details).call({ from: this.state.account });
+      const res = await this.state.ipfscontract.methods.getAccuracy(details).call({ from: this.state.account });
+
+
+      var temp = {};
+
+
+
+
+      temp = { "solver": details1[0], "solutionLink": details, "readme": details[1], "vote":res }
+
+
+
+
+
+      solutions.push(temp);
+    }
+    this.setState({ solutions: solutions });
+  }
   render() {
     return (
       <div>
@@ -106,7 +205,7 @@ export default class PublisherPage extends React.Component {
                       />
                       <ListItemSecondaryAction>
                         <Typography variant="title" color="inherit" >
-                          {this.state.address}
+                          {this.state.account}
                         </Typography>
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -136,7 +235,7 @@ export default class PublisherPage extends React.Component {
                       <ListItemText
                         primary={
                           <Typography variant="title" color="inherit" >
-                            {"Role :-"}
+                            {"Role :- Publisher"}
                           </Typography>
                         }
                       />
@@ -165,7 +264,7 @@ export default class PublisherPage extends React.Component {
                             {row.question}
                           </TableCell>
                           <TableCell align="right">{row.reward}</TableCell>
-                          <TableCell align="right">{row.Timestamp}</TableCell>
+                          <TableCell align="right">{row.timestamp}</TableCell>
                           <TableCell align="right">
                             <Button color="primary" variant="outlined" size="small"
                               onClick={() => { this.setState({ viewDialog: true }) }}
@@ -238,7 +337,7 @@ export default class PublisherPage extends React.Component {
             </Dialog>
           </Card>
         </Grid>
-        <br/>
+        <br />
         <Footer />
       </div>
     )

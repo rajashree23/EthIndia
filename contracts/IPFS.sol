@@ -150,10 +150,10 @@ contract IPFS {
   
   
 
-  function publisherProfile(uint256 i) public view returns(string memory,string memory){
+  function publisherProfile(uint256 i) public view returns(string memory,uint256,string memory){
          
 
-       return (publishers[msg.sender].ipfsQuestion[i],questionDetails[publishers[msg.sender].ipfsQuestion[i]].date) ;
+       return (publishers[msg.sender].ipfsQuestion[i],questionDetails[publishers[msg.sender].ipfsQuestion[i]].reward,questionDetails[publishers[msg.sender].ipfsQuestion[i]].date) ;
 
    }
 
