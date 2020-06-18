@@ -94,22 +94,22 @@ export default class VoterPage extends React.Component {
     }
   }
 
-  // onAgree = ( sol) => {
-  //   this.state.ipfscontract.methods.agree(sol).send({ from: this.state.account }).then((r) => {
+  onAgree = ( sol) => {
+    this.state.ipfscontract.methods.agree(sol).send({ from: this.state.account }).then((r) => {
 
-  //     
-  //     // this.setState({})
+      
+      // this.setState({})
 
-  //   })
-  // }
-  // onDisgree = ( sol) => {
-  //   this.state.ipfscontract.methods.disgree(sol).send({ from: this.state.account }).then((r) => {
+    })
+  }
+  onDisagree = ( sol) => {
+    this.state.ipfscontract.methods.disgree(sol).send({ from: this.state.account }).then((r) => {
 
-  //     
-  //     // this.setState({})
+      
+      // this.setState({})
 
-  //   })
-  // }
+    })
+  }
   render() {
     console.log(this.props)
     return (
@@ -211,12 +211,14 @@ export default class VoterPage extends React.Component {
 
                         </Grid>
                         <Grid item xs={4} md={4} style={{ textAlign: "center" }}>
-                          <IconButton >
+                          <IconButton
+                          onClick={() => { this.onAgree(s.solutionLink) }} >
                             <Icon>
                               thumb_up_alt
                       </Icon>
                           </IconButton>
-                          <IconButton >
+                          <IconButton
+                             onClick={() => { this.onDisagree(s.solutionLink) }} >
                             <Icon>
                               thumb_down_alt
                       </Icon>
