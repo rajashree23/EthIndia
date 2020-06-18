@@ -63,7 +63,7 @@ export default class Footer extends React.Component {
           <Grid item xs={4} md={4}>
             <br />
            <Typography style={{color:"white"}} variant="h5"  >
-              {"About ChainWiz : "}
+              {"About ChainWhiZ : "}
             </Typography>
             <ListItem style={{paddingTop:0}}> 
               <ListItemText
