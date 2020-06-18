@@ -24,6 +24,14 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from "react-router-dom";
 import Loader from "./loader";
+import Footer from "./footer";
+import chainWizImage from "./BG2.png";
+const chainWiz = {
+  backgroundImage: "url(" + chainWizImage + ")",
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+}
+
 const btn = {
   color: "white"
 }
@@ -107,7 +115,7 @@ export default class VoterPage extends React.Component {
     return (
       <div style={{ paddingTop: 8 }}>
         <Grid container justify="center" spacing={2}>
-          <AppBar position="static">
+          <AppBar style={chainWiz} position="static">
             <Toolbar variant="dense">
               <IconButton edge="start" color="inherit" aria-label="menu">
                 <Icon>
@@ -230,6 +238,7 @@ export default class VoterPage extends React.Component {
         {this.state.loader &&
           <Loader />
         }
+        <Footer />
       </div>
 
     )

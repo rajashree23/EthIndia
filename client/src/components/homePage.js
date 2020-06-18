@@ -9,7 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from "react-router-dom";
-import transTok from "../js/transToken";
+// import transTok from "../js/transToken";
 
 import {
   Button,
@@ -31,9 +31,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Loader from "./loader";
 import SnackBar from "./snackbar";
+import Footer from "./footer";
 
-
-
+import chainWizImage from "./BG2.png";
+const chainWiz = {
+  backgroundImage: "url(" + chainWizImage + ")",
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+}
 
 
 const btn = {
@@ -204,15 +209,25 @@ export default class HomePage extends React.Component {
     console.log(this.state);
 
     return (
-      <div style={{ backgroundColor: "#E6F9F9" }}>
+      <div >
         <Grid container>
-          <AppBar position="static">
+          <AppBar style={chainWiz} position="static">
             <Toolbar variant="dense">
-              <IconButton edge="start" color="inherit" aria-label="menu">
-                <Icon>
-                  list
-             </Icon>
-              </IconButton>
+              {this.state.roleValue === "Publisher" ?
+                <Link to="/publisher_section" style={{ textDecoration: "none" }}>
+                  <IconButton edge="start" color="inherit" aria-label="menu">
+                    <Icon style={{ color: "white" }}>
+                      supervised_user_circle
+           </Icon>
+                  </IconButton>
+                </Link>
+                :
+                <IconButton edge="start" color="inherit" aria-label="menu">
+                  <Icon>
+                    view_headline
+           </Icon>
+                </IconButton>
+              }
               <Typography style={{ flex: 1 }} variant="h6" color="inherit">
                 ChainWhiZ
           </Typography>
@@ -329,7 +344,7 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
-                this.loadBlockchainData()
+                // this.loadBlockchainData()
               }}
               color="primary"
               variant="outlined"
@@ -339,12 +354,8 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
-<<<<<<< HEAD
                 console.log(this.state.numberOfToken);
-                transTok(this.state.numberOfToken);
-=======
                 // transTok(this.state.numberOfToken);
->>>>>>> 96b234f1a6d72bbc935a512f75c4678ff85a005b
 
               }}
               color="primary"
@@ -362,6 +373,7 @@ export default class HomePage extends React.Component {
           open={this.state.openSnackBar}
           message={this.state.messageSnackBar}
         />
+        <Footer />
       </div >
 
     )

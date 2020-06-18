@@ -1,7 +1,7 @@
 import React from "react";
-import regPublisherVerify from "../js/regPublisher"
-import regVoterVerify from "../js/regVoter"
-import regSolverVerify from "../js/regSolver"
+// import regPublisherVerify from "../js/regPublisher"
+// import regVoterVerify from "../js/regVoter"
+// import regSolverVerify from "../js/regSolver"
 
 import {
   Button,
@@ -37,24 +37,24 @@ export default class MaticPage extends React.Component {
     }
   }
 
-  getRoles = () => {
-    if (this.state.roleValue === "Publisher") {
-      var a = regPublisherVerify();
-      this.setState({ redirect: a })
-    }
+  // getRoles = () => {
+  //   if (this.state.roleValue === "Publisher") {
+  //     var a = regPublisherVerify();
+  //     this.setState({ redirect: a })
+  //   }
 
-    else if(this.state.roleValue==="Voter")
-     {
-      var a=regVoterVerify();
-      this.setState({redirect:a})
-     }
-     else if(this.state.roleValue==="Solver")
-     { 
-      var a=regSolverVerify();
-      this.setState({redirect:a})
+  //   else if(this.state.roleValue==="Voter")
+  //    {
+  //     var a=regVoterVerify();
+  //     this.setState({redirect:a})
+  //    }
+  //    else if(this.state.roleValue==="Solver")
+  //    { 
+  //     var a=regSolverVerify();
+  //     this.setState({redirect:a})
 
-     }
-  }
+  //    }
+  // }
 
 
 
@@ -65,9 +65,9 @@ export default class MaticPage extends React.Component {
       return <Redirect to="/" />;
     }
     return (
-      <div>
+      <div style={{backgroundColor:"black"}}>
         <Dialog
-
+style={{backgroundColor:"#5F5F5F"}}
           open={this.state.rolesDialog}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
@@ -99,7 +99,7 @@ export default class MaticPage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ rolesDialog: false });
-                 this.getRoles();
+                //  this.getRoles();
               }}
               color="primary"
               autoFocus
