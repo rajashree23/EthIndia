@@ -82,7 +82,7 @@ export default class PublisherPage extends React.Component {
                   </Button>
                 </Link>
 
-                <Button style={btn}>Profile</Button>
+                {/* <Button style={btn}>Profile</Button> */}
                 <Button style={btn}>GuideLines</Button>
                 <Button style={btn}>About</Button>
                 <Button style={btn}>Contact</Button>

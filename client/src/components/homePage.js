@@ -246,7 +246,7 @@ export default class HomePage extends React.Component {
                 }}>
                   Transfer To Matic
                   </Button>
-                <Button style={btn}>Profile</Button>
+                {/* <Button style={btn}>Profile</Button> */}
                 <Button style={btn}>GuideLines</Button>
                 <Button style={btn}>About</Button>
                 <Button style={btn}>Contact</Button>
