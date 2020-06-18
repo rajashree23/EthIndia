@@ -128,7 +128,7 @@ export default class HomePage extends React.Component {
             }
           }
 
-          max = await this.state.ipfscontract.methods.setResult(ques, ressolver).call({ from: fromAcc });
+         console.log(ressolver);
         }
 
 
