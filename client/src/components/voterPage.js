@@ -126,8 +126,12 @@ export default class VoterPage extends React.Component {
                 ChainWhiZ
           </Typography>
               <div style={{ float: "right" }}>
-                <Button style={btn}>Home</Button>
-
+              {/* <Link to="/" style={{ textDecoration: "none" }}>
+                <Button style={btn}
+                >
+                  Home
+                </Button>
+              </Link> */}
                 <Link to="/get_roles" style={{ textDecoration: "none" }}>
                   <Button
                     style={btn}
@@ -135,7 +139,7 @@ export default class VoterPage extends React.Component {
                     Get Roles
                   </Button>
                 </Link>
-                <Button style={btn}>Profile</Button>
+              
                 <Button style={btn}>GuideLines</Button>
                 <Button style={btn}>About</Button>
                 <Button style={btn}>Contact</Button>
