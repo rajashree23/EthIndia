@@ -132,13 +132,13 @@ export default class VoterPage extends React.Component {
                   Home
                 </Button>
               </Link> */}
-                <Link to="/get_roles" style={{ textDecoration: "none" }}>
+                {/* <Link to="/get_roles" style={{ textDecoration: "none" }}>
                   <Button
                     style={btn}
                   >
                     Get Roles
                   </Button>
-                </Link>
+                </Link> */}
               
                 <Button style={btn}>GuideLines</Button>
                 <Button style={btn}>About</Button>
