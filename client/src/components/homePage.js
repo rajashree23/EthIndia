@@ -36,6 +36,7 @@ const chainWiz = {
   backgroundImage: "url(" + chainWizImage + ")",
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
+  // backgroundColor: "black"
 }
 
 
@@ -71,7 +72,7 @@ export default class HomePage extends React.Component {
 
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
-    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x33d85650d800b63ad583bcfaf78d64fe218fc56d")
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0xb118ea6cf5e2270478d96c1eccb94552d27e37e5")
     this.setState({ ipfscontract })
     const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
     this.setState({ rolescontract })
