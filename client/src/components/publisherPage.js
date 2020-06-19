@@ -179,6 +179,24 @@ export default class PublisherPage extends React.Component {
                       <ListItemText
                         primary={
                           <Typography variant="title" color="inherit" >
+                            {}
+                          </Typography>
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Typography variant="title" color="inherit" >
+                          {this.state.address}
+                        </Typography>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <List>
+                    <ListItem>
+                      <ListItemText
+                        primary={
+                          <Typography variant="title" color="inherit" >
                             {"Role :- Publisher"}
                           </Typography>
                         }
