@@ -94,7 +94,7 @@ export default class Footer extends React.Component {
                 <ListItemText
                   primary={
                    <Typography style={{color:"white"}} variant="title"  >
-                      {"Role :-"}
+                      {"Ashis Kumar Pradhan"}
                     </Typography>
                   }
                 />
@@ -103,7 +103,7 @@ export default class Footer extends React.Component {
                 <ListItemText
                   primary={
                    <Typography style={{color:"white"}} variant="title"  >
-                      {"Role :-"}
+                      {"Rajashree Parhi"}
                     </Typography>
                   }
                 />
@@ -112,7 +112,7 @@ export default class Footer extends React.Component {
                 <ListItemText
                   primary={
                    <Typography style={{color:"white"}} variant="title"  >
-                      {"Role :-"}
+                      {"Monalisha Mishra"}
                     </Typography>
                   }
                 />
@@ -121,7 +121,7 @@ export default class Footer extends React.Component {
                 <ListItemText
                   primary={
                    <Typography style={{color:"white"}} variant="title"  >
-                      {"Role :-"}
+                      {"Md Mohsin Siddiqui"}
                     </Typography>
                   }
                 />
