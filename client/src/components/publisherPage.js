@@ -70,44 +70,21 @@ export default class PublisherPage extends React.Component {
   }
 
   async loadBlockchainData() {
-
     const web3 = window.web3
-
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
     const ipfscontract = new web3.eth.Contract(ipfsABI, "0xb118ea6cf5e2270478d96c1eccb94552d27e37e5")
     this.setState({ ipfscontract })
-
-
     var account = await web3.eth.getAccounts()
     var fromAcc = account.toString();
-
     var questions = [];
     const len = await this.state.ipfscontract.methods.getIpfsQuestionLen().call({ from: fromAcc });
     var i;
-
     var cont = [];
     for (i = len - 1; i >= 0; i--) {
-
-
-
-
       const details = await this.state.ipfscontract.methods.publisherProfile(i).call({ from: fromAcc });
-     
-
-
-
       var temp = {};
-
-
-
-
       temp = { "question": details[0], "reward": details[1], "timestamp": details[2] }
-
-
-
-
-
       questions.push(temp);
     }
     this.setState({ questions: questions });
@@ -126,28 +103,12 @@ async viewSol(ques) {
     var solutions = [];
     const len = await this.state.ipfscontract.methods.getSoutionLinkLen(ques).call({ from: this.state.account});
     var i;
-
-    
     for (i = 0; i < len; i++) {
-
-
-
-
       const details = await this.state.ipfscontract.methods.solutionLinkList(ques,i).call({ from: this.state.account });
       const details1 = await this.state.ipfscontract.methods.solutionLinkDetails(details).call({ from: this.state.account });
       const res = await this.state.ipfscontract.methods.getAccuracy(details).call({ from: this.state.account });
-
-
       var temp = {};
-
-
-
-
-      temp = { "solver": details1[0], "solutionLink": details, "readme": details[1], "vote":res }
-
-
-
-
+      temp = { "solver": details1[0], "solutionLink": details, "readme": details1[1], "vote":res }
 
       solutions.push(temp);
     }
@@ -313,7 +274,11 @@ async viewSol(ques) {
                                 {row.solver}
                               </TableCell>
                               <TableCell align="right">{row.solutionLink}</TableCell>
-                              <TableCell align="right">{row.readme}</TableCell>
+                             
+                              <TableCell align="right">
+                              <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + row.readme} target="_blank" >
+                                  {row.readme}  </a>
+                              </TableCell>
                               <TableCell align="right">
                                 {row.vote}
                               </TableCell>
