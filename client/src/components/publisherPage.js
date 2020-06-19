@@ -122,7 +122,7 @@ export default class PublisherPage extends React.Component {
     }
   }
 
-  viewSol = (ques) => {
+async viewSol(ques) {
     var solutions = [];
     const len = await this.state.ipfscontract.methods.getSoutionLinkLen(ques).call({ from: this.state.account});
     var i;
@@ -152,6 +152,7 @@ export default class PublisherPage extends React.Component {
       solutions.push(temp);
     }
     this.setState({ solutions: solutions });
+    console.log(this.state.solutions);
   }
   render() {
     return (
@@ -267,7 +268,8 @@ export default class PublisherPage extends React.Component {
                           <TableCell align="right">{row.timestamp}</TableCell>
                           <TableCell align="right">
                             <Button color="primary" variant="outlined" size="small"
-                              onClick={() => { this.setState({ viewDialog: true }) }}
+                              onClick={() => { this.setState({ viewDialog: true });
+                                this.viewSol(row.question);}}
                             >View</Button>
                           </TableCell>
                         </TableRow>
@@ -305,15 +307,15 @@ export default class PublisherPage extends React.Component {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {this.state.questions.map((row) => (
+                          {this.state.solutions.map((row) => (
                             <TableRow key={row.name}>
                               <TableCell component="th" scope="row">
-                                {row.question}
+                                {row.solver}
                               </TableCell>
-                              <TableCell align="right">{row.reward}</TableCell>
-                              <TableCell align="right">{row.Timestamp}</TableCell>
+                              <TableCell align="right">{row.solutionLink}</TableCell>
+                              <TableCell align="right">{row.readme}</TableCell>
                               <TableCell align="right">
-                                {"34%"}
+                                {row.vote}
                               </TableCell>
                             </TableRow>
                           ))}
