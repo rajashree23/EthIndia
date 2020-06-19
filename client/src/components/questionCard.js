@@ -98,7 +98,7 @@ export default class QuestionsCard extends React.Component {
 
   render() {
     return (
-      <Card style={{ borderRadius: 10 }} >
+      <Card raised={true}style={{ borderRadius: 10 }} >
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={10} md={10}>

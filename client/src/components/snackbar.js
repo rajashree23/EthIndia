@@ -13,6 +13,13 @@ export default class SnackBar extends React.Component {
       open: false
     })
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.state.open !== nextProps.open) {
+      this.setState({
+        open: true
+      })
+    }
+  }
   render() {
 
     return (

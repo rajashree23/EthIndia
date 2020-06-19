@@ -138,7 +138,7 @@ export default class VoterPage extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={12} md={10}>
-            <Card style={{ borderRadius: 10 }} >
+            <Card raised={true} style={{ borderRadius: 10 }} >
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={10} md={10}>
@@ -173,7 +173,7 @@ export default class VoterPage extends React.Component {
             {this.state.solutions.length > 0 && <span>
               {this.state.solutions.map(s => (
                 <div>
-                  <Card style={{ borderRadius: 10 }} >
+                  <Card raised={true} style={{ borderRadius: 10 }} >
                     <CardContent>
                       <Grid container spacing={2}>
                         <Grid item xs={8} md={8}>

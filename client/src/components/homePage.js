@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from "react-router-dom";
-import transTok from "../js/transToken";
+// import transTok from "../js/transToken";
 
 import {
   Button,
@@ -250,7 +250,7 @@ export default class HomePage extends React.Component {
           <Grid container justify="center" spacing={2} item xs={12} md={12}>
             <Grid item xs={8} md={8}>
               <br />
-              <Card style={{ borderRadius: 10 }} >
+              <Card raised={true} style={{ borderRadius: 10 }} >
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={12} md={12}>
@@ -275,6 +275,7 @@ export default class HomePage extends React.Component {
                       {
                         this.state.roleValue === "Publisher" &&
                         <Button
+                          disabled={this.state.postReward === "" ? true : false}
                           style={{ marginTop: -30 }} color="primary" variant="outlined" onClick={this.onSubmit} >
                           Post
                        </Button>
@@ -338,7 +339,7 @@ export default class HomePage extends React.Component {
               onClick={() => {
                 this.setState({ tranferDialog: false });
                 console.log(this.state.numberOfToken);
-                transTok(this.state.numberOfToken);
+                // transTok(this.state.numberOfToken);
 
               }}
               color="primary"
