@@ -224,7 +224,8 @@ async viewSol(ques) {
                       {this.state.questions.map((row) => (
                         <TableRow key={row.name}>
                           <TableCell component="th" scope="row">
-                            {row.question}
+                          <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + row.question} target="_blank" >
+                                  {row.question}  </a>
                           </TableCell>
                           <TableCell align="right">{row.reward}</TableCell>
                           <TableCell align="right">{row.timestamp}</TableCell>
