@@ -61,7 +61,7 @@ export default class VoterPage extends React.Component {
 
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
-    const ipfscontract = new web3.eth.Contract(ipfsABI, "0x33d85650d800b63ad583bcfaf78d64fe218fc56d")
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0xb118ea6cf5e2270478d96c1eccb94552d27e37e5")
     this.setState({ ipfscontract })
 
     var account = await web3.eth.getAccounts()
