@@ -95,7 +95,7 @@ export default class Footer extends React.Component {
                 <ListItemText
                   primary={
                     <Typography style={{ color: "white" }} variant="title"  >
-                      {"Your@gmail.com"}
+                      {"your@gmail.com"}
                     </Typography>
                   }
                 />

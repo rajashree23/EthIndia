@@ -18,6 +18,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "social-media-icons-react": "^1.0.10",
     "utf-8-validate": "^5.0.2",
     "web3": "^1.2.8"
   },
