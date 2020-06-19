@@ -84,6 +84,7 @@ export default class PublisherPage extends React.Component {
     for (i = len - 1; i >= 0; i--) {
       const details = await this.state.ipfscontract.methods.publisherProfile(i).call({ from: fromAcc });
       var temp = {};
+      
       temp = { "question": details[0], "reward": details[1], "timestamp": details[2] }
       questions.push(temp);
     }
@@ -161,13 +162,13 @@ async viewSol(ques) {
                       <ListItemText
                         primary={
                           <Typography variant="title" color="inherit" >
-                            {"Public Address :-"}
+                            {"Public Address :-"+this.state.account}
                           </Typography>
                         }
                       />
                       <ListItemSecondaryAction>
                         <Typography variant="title" color="inherit" >
-                          {this.state.account}
+                          {}
                         </Typography>
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -175,7 +176,7 @@ async viewSol(ques) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <List>
-                    <ListItem>
+                    {/* <ListItem>
                       <ListItemText
                         primary={
                           <Typography variant="title" color="inherit" >
@@ -188,7 +189,7 @@ async viewSol(ques) {
                           {this.state.address}
                         </Typography>
                       </ListItemSecondaryAction>
-                    </ListItem>
+                    </ListItem> */}
                   </List>
                 </Grid>
                 <Grid item xs={12} md={6}>

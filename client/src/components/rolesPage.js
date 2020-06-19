@@ -38,20 +38,22 @@ export default class MaticPage extends React.Component {
   }
 
   getRoles = () => {
+    this.setState({ openSnackBar: true, messageSnackBar: "Confirm transaction and change to ropsten" });
     if (this.state.roleValue === "Publisher") {
       var a = regPublisherVerify();
-      this.setState({ redirect: a })
+      this.setState({ redirect: a  })
+       
     }
 
     else if(this.state.roleValue==="Voter")
      {
       var a=regVoterVerify();
-      this.setState({redirect:a})
+      this.setState({ redirect: a  })
      }
      else if(this.state.roleValue==="Solver")
      { 
       var a=regSolverVerify();
-      this.setState({redirect:a})
+      this.setState({ redirect: a  })
 
      }
   }
@@ -61,9 +63,10 @@ export default class MaticPage extends React.Component {
 
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/" />;
-    }
+    // if (this.state.redirect) {
+    //   return <Redirect to="/" />;
+
+    // }
     return (
       <div style={{backgroundColor:"black"}}>
         <Dialog
