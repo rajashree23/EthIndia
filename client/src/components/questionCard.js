@@ -123,7 +123,7 @@ export default class QuestionsCard extends React.Component {
         </CardContent>
         <CardActions>
           {
-            this.props.type === "Solver" &&
+            (this.props.type === "Solver" && this.props.data.label) &&
             <Button
               color="primary"
               variant="outlined"
@@ -132,19 +132,23 @@ export default class QuestionsCard extends React.Component {
             >Solve</Button>
           }
           {
-            this.props.type === "Voter" &&
-          <Link
-            style={{ textDecoration: "none" }}
-            to={{
-              pathname: "voter_section",
-              state: {
-                data: this.props.data
-              }
-            }}>
-            <Button color="primary" variant="outlined" size="small">Vote</Button>
-          </Link>
+            (this.props.type === "Voter" && this.props.data.label) &&
+            <Link
+              style={{ textDecoration: "none" }}
+              to={{
+                pathname: "voter_section",
+                state: {
+                  data: this.props.data
+                }
+              }}>
+              <Button color="primary" variant="outlined" size="small">Vote</Button>
+            </Link>
           }
-
+          {this.props.data.questions.result &&
+            <Typography colour="textSecondary" variant="h6" gutterBottom>
+              {this.props.data.questions.result}
+            </Typography>
+          }
 
           {/* <Button color="primary" variant="outlined" size="small"  onClick={() => { this.props.refresh  }}>Get Question</Button> */}
         </CardActions>

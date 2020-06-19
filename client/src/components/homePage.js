@@ -137,7 +137,7 @@ export default class HomePage extends React.Component {
 
 
 
-        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": "abcdlkjdwjeiu2193" }
+      
       }
       questions.push(temp);
     }
