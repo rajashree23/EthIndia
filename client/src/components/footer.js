@@ -47,8 +47,8 @@ export default class Footer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: [{ question: "What does SIM stands for??", reward: "1200", Timestamp: "12 july 2020" }],
-      about: "kjsdboeihaipanlkcnkanpkahiphdbkjbclsfbiur JEB:OUWEb;fouab;ewb:A EJ vea;ojhello eworld this is my"
+      // questions: [{ question: "What does SIM stands for??", reward: "1200", Timestamp: "12 july 2020" }],
+      about:"A Platform where Ethereum Developers come together!"
     }
   }
 

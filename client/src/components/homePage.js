@@ -372,6 +372,15 @@ export default class HomePage extends React.Component {
           open={this.state.openSnackBar}
           message={this.state.messageSnackBar}
         />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <Footer />
       </div >
 
