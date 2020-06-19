@@ -94,18 +94,18 @@ export default class VoterPage extends React.Component {
     }
   }
 
-  onAgree = ( sol) => {
+  onAgree = (sol) => {
     this.state.ipfscontract.methods.agree(sol).send({ from: this.state.account }).then((r) => {
 
-      
+
       // this.setState({})
 
     })
   }
-  onDisagree = ( sol) => {
+  onDisagree = (sol) => {
     this.state.ipfscontract.methods.disgree(sol).send({ from: this.state.account }).then((r) => {
 
-      
+
       // this.setState({})
 
     })
@@ -126,20 +126,6 @@ export default class VoterPage extends React.Component {
                 ChainWhiZ
           </Typography>
               <div style={{ float: "right" }}>
-              {/* <Link to="/" style={{ textDecoration: "none" }}>
-                <Button style={btn}
-                >
-                  Home
-                </Button>
-              </Link> */}
-                {/* <Link to="/get_roles" style={{ textDecoration: "none" }}>
-                  <Button
-                    style={btn}
-                  >
-                    Get Roles
-                  </Button>
-                </Link> */}
-              
                 <Button style={btn}>GuideLines</Button>
                 <Button style={btn}>About</Button>
                 <Button style={btn}>Contact</Button>
@@ -216,13 +202,13 @@ export default class VoterPage extends React.Component {
                         </Grid>
                         <Grid item xs={4} md={4} style={{ textAlign: "center" }}>
                           <IconButton
-                          onClick={() => { this.onAgree(s.solutionLink) }} >
+                            onClick={() => { this.onAgree(s.solutionLink) }} >
                             <Icon>
                               thumb_up_alt
                       </Icon>
                           </IconButton>
                           <IconButton
-                             onClick={() => { this.onDisagree(s.solutionLink) }} >
+                            onClick={() => { this.onDisagree(s.solutionLink) }} >
                             <Icon>
                               thumb_down_alt
                       </Icon>
@@ -244,6 +230,14 @@ export default class VoterPage extends React.Component {
         {this.state.loader &&
           <Loader />
         }
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <Footer />
       </div>
 

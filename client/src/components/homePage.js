@@ -129,15 +129,10 @@ export default class HomePage extends React.Component {
             }
           }
 
-         console.log(ressolver);
+          console.log(ressolver);
         }
-
-
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
 
-
-
-      
       }
       questions.push(temp);
     }
@@ -170,9 +165,6 @@ export default class HomePage extends React.Component {
 
     }
   }
-
-
-
   captureFile = (event) => {
     event.preventDefault()
     const file = event.target.files[0]
@@ -290,17 +282,10 @@ export default class HomePage extends React.Component {
 
                     </Grid>
                   </Grid>
-
-
-
-
                 </CardContent >
               </Card >
-
             </Grid>
             <Grid item xs={8} md={8}>
-
-
               {this.state.questions.length > 0 && <span>
                 {this.state.questions.map(s => (
                   <div>
@@ -315,7 +300,6 @@ export default class HomePage extends React.Component {
             </Grid>
           </Grid>
         </Grid>
-
         <Dialog
           open={this.state.tranferDialog}
           aria-labelledby="alert-dialog-title"
@@ -372,15 +356,15 @@ export default class HomePage extends React.Component {
           open={this.state.openSnackBar}
           message={this.state.messageSnackBar}
         />
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <Footer />
       </div >
 

@@ -84,7 +84,7 @@ export default class PublisherPage extends React.Component {
     for (i = len - 1; i >= 0; i--) {
       const details = await this.state.ipfscontract.methods.publisherProfile(i).call({ from: fromAcc });
       var temp = {};
-      
+
       temp = { "question": details[0], "reward": details[1], "timestamp": details[2] }
       questions.push(temp);
     }
@@ -100,16 +100,16 @@ export default class PublisherPage extends React.Component {
     }
   }
 
-async viewSol(ques) {
+  async viewSol(ques) {
     var solutions = [];
-    const len = await this.state.ipfscontract.methods.getSoutionLinkLen(ques).call({ from: this.state.account});
+    const len = await this.state.ipfscontract.methods.getSoutionLinkLen(ques).call({ from: this.state.account });
     var i;
     for (i = 0; i < len; i++) {
-      const details = await this.state.ipfscontract.methods.solutionLinkList(ques,i).call({ from: this.state.account });
+      const details = await this.state.ipfscontract.methods.solutionLinkList(ques, i).call({ from: this.state.account });
       const details1 = await this.state.ipfscontract.methods.solutionLinkDetails(details).call({ from: this.state.account });
       const res = await this.state.ipfscontract.methods.getAccuracy(details).call({ from: this.state.account });
       var temp = {};
-      temp = { "solver": details1[0], "solutionLink": details, "readme": details1[1], "vote":res }
+      temp = { "solver": details1[0], "solutionLink": details, "readme": details1[1], "vote": res }
 
       solutions.push(temp);
     }
@@ -155,14 +155,13 @@ async viewSol(ques) {
           <Card raised={true} style={{ borderRadius: 10, marginTop: 10 }} >
             <CardContent>
               <Grid container item spacing={2}>
-
                 <Grid item xs={12} md={6}>
                   <List>
                     <ListItem>
                       <ListItemText
                         primary={
                           <Typography variant="title" color="inherit" >
-                            {"Public Address :-"+this.state.account}
+                            {"Public Address :-" + this.state.account}
                           </Typography>
                         }
                       />
@@ -172,24 +171,6 @@ async viewSol(ques) {
                         </Typography>
                       </ListItemSecondaryAction>
                     </ListItem>
-                  </List>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <List>
-                    {/* <ListItem>
-                      <ListItemText
-                        primary={
-                          <Typography variant="title" color="inherit" >
-                            {"Balance :-"}
-                          </Typography>
-                        }
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="title" color="inherit" >
-                          {this.state.address}
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItem> */}
                   </List>
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -224,15 +205,17 @@ async viewSol(ques) {
                       {this.state.questions.map((row) => (
                         <TableRow key={row.name}>
                           <TableCell component="th" scope="row">
-                          <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + row.question} target="_blank" >
-                                  {row.question}  </a>
+                            <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + row.question} target="_blank" >
+                              {row.question}  </a>
                           </TableCell>
                           <TableCell align="right">{row.reward}</TableCell>
                           <TableCell align="right">{row.timestamp}</TableCell>
                           <TableCell align="right">
                             <Button color="primary" variant="outlined" size="small"
-                              onClick={() => { this.setState({ viewDialog: true });
-                                this.viewSol(row.question);}}
+                              onClick={() => {
+                                this.setState({ viewDialog: true });
+                                this.viewSol(row.question);
+                              }}
                             >View</Button>
                           </TableCell>
                         </TableRow>
@@ -276,9 +259,9 @@ async viewSol(ques) {
                                 {row.solver}
                               </TableCell>
                               <TableCell align="right">{row.solutionLink}</TableCell>
-                             
+
                               <TableCell align="right">
-                              <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + row.readme} target="_blank" >
+                                <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + row.readme} target="_blank" >
                                   {row.readme}  </a>
                               </TableCell>
                               <TableCell align="right">
@@ -306,6 +289,13 @@ async viewSol(ques) {
             </Dialog>
           </Card>
         </Grid>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
         <Footer />
       </div>
