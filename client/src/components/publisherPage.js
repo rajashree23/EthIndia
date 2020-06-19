@@ -176,11 +176,11 @@ async viewSol(ques) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <List>
-                    {/* <ListItem>
+                    <ListItem>
                       <ListItemText
                         primary={
                           <Typography variant="title" color="inherit" >
-                            {"Balance :-"}
+                            {}
                           </Typography>
                         }
                       />
@@ -189,7 +189,7 @@ async viewSol(ques) {
                           {this.state.address}
                         </Typography>
                       </ListItemSecondaryAction>
-                    </ListItem> */}
+                    </ListItem>
                   </List>
                 </Grid>
                 <Grid item xs={12} md={6}>
