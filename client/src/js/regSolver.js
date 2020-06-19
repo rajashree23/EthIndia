@@ -94,8 +94,8 @@ export default async function regPublisherVerify() {
     const bal = await checkBal()
     const fromAcc = await getAccount()
     console.log(fromAcc)
-    if (bal >= 0.000002) {
-      const out = await tokenTransDeployer(0.000002)//in matic network
+    if (bal >= 50000000000000) {
+      const out = await tokenTransDeployer(50000000000000)//in matic network
       //Delay to change network from Matic to Ropston
       console.log(out)
       if (out) {//in ropston network

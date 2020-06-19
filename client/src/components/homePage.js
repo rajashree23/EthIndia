@@ -74,7 +74,7 @@ export default class HomePage extends React.Component {
     this.setState({ account: accounts[0], loader: true })
     const ipfscontract = new web3.eth.Contract(ipfsABI, "0xb118ea6cf5e2270478d96c1eccb94552d27e37e5")
     this.setState({ ipfscontract })
-    const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
+    const rolescontract = new web3.eth.Contract(rolesABI, "0xc9125cff7124b577afd82e875ea1d81e10954cee")
     this.setState({ rolescontract })
 
     var account = await web3.eth.getAccounts()
