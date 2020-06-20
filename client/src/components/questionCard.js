@@ -97,6 +97,7 @@ export default class QuestionsCard extends React.Component {
 
 
   render() {
+    console.log(this.props.data.questions);
     return (
       <Card raised={true}style={{ borderRadius: 10 }} >
         <CardContent>
@@ -144,9 +145,9 @@ export default class QuestionsCard extends React.Component {
               <Button color="primary" variant="outlined" size="small">Vote</Button>
             </Link>
           }
-          {this.props.data.questions.result &&
+          {!this.props.data.label &&
             <Typography colour="textSecondary" variant="h6" gutterBottom>
-              {this.props.data.questions.result}
+              {this.props.data.result}
             </Typography>
           }
 

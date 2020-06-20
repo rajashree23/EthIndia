@@ -134,6 +134,7 @@ export default class HomePage extends React.Component {
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
 
       }
+      console.log(questions);
       questions.push(temp);
     }
     this.setState({ questions: questions });
