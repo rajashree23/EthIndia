@@ -114,7 +114,7 @@ export default class HomePage extends React.Component {
       }
       else {
 
-        if (details[3] == "0x0000000000000000000000000000000000000000") {
+        // if (details[3] == "0x0000000000000000000000000000000000000000") {
 
           const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
           var max = 0;
@@ -130,7 +130,7 @@ export default class HomePage extends React.Component {
           }
 
           console.log(ressolver);
-        }
+        // }
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
 
       }
