@@ -39,7 +39,7 @@ const Ropsten_Erc20Address = config.Ropsten_Erc20Address;
 const Matic_Erc20Address = config.Matic_Erc20Address;
 const Ropsten_Erc721Address = config.Ropsten_Erc721Address;
 const Matic_Erc721Address = config.Matic_Erc721Address;
-    //const from = account.toString(); // from address
+   // const from = account.toString(); // from address
   
     const matic = new Matic({
       maticProvider:window.web3,
