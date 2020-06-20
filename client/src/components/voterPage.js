@@ -178,12 +178,12 @@ export default class VoterPage extends React.Component {
                       <Grid container spacing={2}>
                         <Grid item xs={8} md={8}>
                           <Typography variant="title" color="inherit" >
-                            {"Public Address :-" + s.solverAddress}
+                            {"Public Address:-" + s.solverAddress}
                           </Typography>
                         </Grid>
                         <Grid item xs={4} md={4} style={{ display: "inline-flex" }}>
                           <Typography inline color="inherit" variant="title"
-                          >{"Ethfiddle Link :-"}
+                          >{"Ethfiddle Link:-"}
                           </Typography>
                           <Typography inline color="inherit" variant="title" >
                             <a style={{ fontSize: 15 }} href={s.solutionLink} target="_blank" >
@@ -193,7 +193,7 @@ export default class VoterPage extends React.Component {
 
                         <Grid item xs={8} md={8} style={{ display: "inline-flex", paddingTop: 18 }}>
 
-                          <Typography inline color="inherit" variant="title">{"ReadMe :-"}</Typography>
+                          <Typography inline color="inherit" variant="title">{"ReadMe:-"}</Typography>
                           <Typography inline color="inherit" variant="title">
                             <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + s.readMe} target="_blank" >
                               {s.readMe}  </a>
