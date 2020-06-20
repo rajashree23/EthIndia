@@ -102,7 +102,7 @@ export default class QuestionsCard extends React.Component {
       <Card raised={true} style={{ borderRadius: 10 }} >
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={9} md={9}>
+            <Grid item xs={10} md={10}>
               <Typography variant="title" color="inherit" >
                 {"Public Address:-" + this.props.data.address}
               </Typography>
