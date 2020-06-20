@@ -102,24 +102,30 @@ export default class QuestionsCard extends React.Component {
       <Card raised={true} style={{ borderRadius: 10 }} >
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={10} md={10}>
+            <Grid item xs={9} md={9}>
               <Typography variant="title" color="inherit" >
-                {"Public Address :-" + this.props.data.address}
+                {"Public Address:-" + this.props.data.address}
               </Typography>
             </Grid>
             <Grid item xs={2} md={2}>
               <Typography variant="subheading" color="inherit" >
-                {"Date :-" + this.props.data.timestamp}
+                {"Date:-" + this.props.data.timestamp}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={10} md={10}>
               <Typography color="textSecondary" variant="h6" gutterBottom>
                 <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + this.props.data.question} target="_blank" >
                   {this.props.data.question}  </a>
               </Typography>
 
             </Grid>
-
+            {!this.props.data.label &&
+              <Grid item xs={12} md={12}>
+                <Typography variant="title" color="inherit">
+                  {"Result :-" + this.props.data.result}
+                </Typography>
+              </Grid>
+            }
           </Grid>
         </CardContent>
         <CardActions>
@@ -145,11 +151,7 @@ export default class QuestionsCard extends React.Component {
               <Button color="primary" variant="outlined" size="small">Vote</Button>
             </Link>
           }
-          {!this.props.data.label &&
-            <Typography colour="textSecondary" variant="h6" gutterBottom>
-              {this.props.data.result}
-            </Typography>
-          }
+
 
           {/* <Button color="primary" variant="outlined" size="small"  onClick={() => { this.props.refresh  }}>Get Question</Button> */}
         </CardActions>
@@ -188,7 +190,7 @@ export default class QuestionsCard extends React.Component {
                   </Typography>
                   <Typography color="textSecondary" variant="h6" gutterBottom>
                     <a style={{ fontSize: 15 }} href={"https://ethfiddle.com/"} target="_blank" >
-                    https://ethfiddle.com/</a>
+                      https://ethfiddle.com/</a>
                   </Typography>
                 </Grid>
                 <Grid item xs={6} md={6}>

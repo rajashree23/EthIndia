@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from "react-router-dom";
-import transTok from "../js/transToken";
+//import transTok from "../js/transToken";
 
 import {
   Button,
@@ -95,7 +95,7 @@ export default class HomePage extends React.Component {
     var questions = [];
     const len = await this.state.ipfscontract.methods.getQuestionListLength().call({ from: fromAcc });
     var i;
-
+    this.setState({questions:[]});
     var cont = [];
     for (i = len - 1; i >= 0; i--) {
       const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call({ from: fromAcc });
@@ -106,7 +106,7 @@ export default class HomePage extends React.Component {
       const seconds = new Date().getTime() / 1000;
 
 
-
+     
       var temp = {};
       if (details[1] >= seconds) {
 
@@ -136,7 +136,10 @@ export default class HomePage extends React.Component {
       }
       console.log(questions);
       questions.push(temp);
+     
     }
+   var temp={"address":"0xdda59C23CfDe94b5d2577Df6BB6b801bfD381f3c","question":"Qmc6horV2Yf2oCC2Sti4mkGq1ntL8YJoqdCu8ZGCrfFail","timestamp":"13-06-2020","label":false,"result":"0x402b6ab609703Fdce0D01eD6738eD81A05D66777"};
+    questions.push(temp);
     this.setState({ questions: questions });
     var abc = this.state.finalobj;
     abc.cardofquestion = questions;
@@ -340,7 +343,7 @@ export default class HomePage extends React.Component {
               onClick={() => {
                 this.setState({ tranferDialog: false });
                 console.log(this.state.numberOfToken);
-                transTok(this.state.numberOfToken);
+                //transTok(this.state.numberOfToken);
 
               }}
               color="primary"
