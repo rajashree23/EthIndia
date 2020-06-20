@@ -99,7 +99,7 @@ export default class QuestionsCard extends React.Component {
   render() {
     console.log(this.props.data.questions);
     return (
-      <Card raised={true}style={{ borderRadius: 10 }} >
+      <Card raised={true} style={{ borderRadius: 10 }} >
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={10} md={10}>
@@ -182,13 +182,22 @@ export default class QuestionsCard extends React.Component {
                       {this.props.data.question}  </a>
                   </Typography>
                 </Grid>
+                <Grid item xs={12} md={12}>
+                  <Typography variant="h6" gutterBottom>
+                    {"Click below to go to EthFiddle:"}
+                  </Typography>
+                  <Typography color="textSecondary" variant="h6" gutterBottom>
+                    <a style={{ fontSize: 15 }} href={"https://ethfiddle.com/"} target="_blank" >
+                    https://ethfiddle.com/</a>
+                  </Typography>
+                </Grid>
                 <Grid item xs={6} md={6}>
                   <TextField
                     fullWidth
                     variant="outlined"
                     type="text"
                     value={this.state.ethFiddleLink}
-                    label={"Enter ETHFiddle Link"}
+                    label={"Enter EthFiddle Link"}
                     onChange={(e) => { this.setState({ ethFiddleLink: e.target.value }) }}
                   />
                 </Grid>

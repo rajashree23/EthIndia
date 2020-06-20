@@ -265,9 +265,9 @@ export default class PublisherPage extends React.Component {
                         <TableHead>
                           <TableRow>
                             <TableCell>Solver Address</TableCell>
-                            <TableCell align="right">Link</TableCell>
-                            <TableCell align="right">Read me</TableCell>
-                            <TableCell align="right">Vote %</TableCell>
+                            <TableCell align="left">Link</TableCell>
+                            <TableCell align="left">Read me</TableCell>
+                            <TableCell align="left">Vote(%)</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -276,7 +276,7 @@ export default class PublisherPage extends React.Component {
                               <TableCell component="th" scope="row">
                                 {row.solver}
                               </TableCell>
-                              <TableCell align="right">{row.solutionLink}</TableCell>
+                              <TableCell align="right"><a style={{ fontSize: 15 }} href={row.solutionLink} target="_blank" >{row.solutionLink}</a></TableCell>
 
                               <TableCell align="right">
                                 <a style={{ fontSize: 15 }} href={"https://ipfs.infura.io/ipfs/" + row.readme} target="_blank" >
