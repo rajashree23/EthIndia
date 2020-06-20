@@ -1,5 +1,6 @@
 export const ipfsABI = [
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -9,10 +10,12 @@ export const ipfsABI = [
 		],
 		"name": "agree",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -22,80 +25,12 @@ export const ipfsABI = [
 		],
 		"name": "disagree",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "questionIpfs",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "reward",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "dateTime",
-				"type": "string"
-			}
-		],
-		"name": "publisherUploadQues",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "ipfs",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "resSolver",
-				"type": "address"
-			}
-		],
-		"name": "setResult",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "questionIpfs",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "readMeIpfs",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sol",
-				"type": "string"
-			}
-		],
-		"name": "solverUploadSol",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -126,10 +61,12 @@ export const ipfsABI = [
 				"type": "address"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -145,10 +82,12 @@ export const ipfsABI = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "getIpfsQuestionLen",
 		"outputs": [
@@ -158,10 +97,12 @@ export const ipfsABI = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -177,10 +118,12 @@ export const ipfsABI = [
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "getQuestionListLength",
 		"outputs": [
@@ -190,10 +133,12 @@ export const ipfsABI = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -214,10 +159,12 @@ export const ipfsABI = [
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -243,29 +190,12 @@ export const ipfsABI = [
 				"type": "address"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "sol",
-				"type": "string"
-			}
-		],
-		"name": "getsolver",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
+		"constant": true,
 		"inputs": [],
 		"name": "getSolverSolution",
 		"outputs": [
@@ -275,10 +205,12 @@ export const ipfsABI = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -294,10 +226,12 @@ export const ipfsABI = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -313,10 +247,33 @@ export const ipfsABI = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "sol",
+				"type": "string"
+			}
+		],
+		"name": "getsolver",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -342,10 +299,63 @@ export const ipfsABI = [
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "questionIpfs",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "reward",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "dateTime",
+				"type": "string"
+			}
+		],
+		"name": "publisherUploadQues",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "ipfs",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "resSolver",
+				"type": "address"
+			}
+		],
+		"name": "setResult",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -366,10 +376,12 @@ export const ipfsABI = [
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -390,7 +402,33 @@ export const ipfsABI = [
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "questionIpfs",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "readMeIpfs",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sol",
+				"type": "string"
+			}
+		],
+		"name": "solverUploadSol",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

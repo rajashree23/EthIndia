@@ -103,7 +103,7 @@ export default class VoterPage extends React.Component {
     })
   }
   onDisagree = (sol) => {
-    this.state.ipfscontract.methods.disgree(sol).send({ from: this.state.account }).then((r) => {
+    this.state.ipfscontract.methods.disagree(sol).send({ from: this.state.account }).then((r) => {
 
 
       // this.setState({})
