@@ -21,7 +21,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import QuestionsCard from "./questionCard";
-import UploadSection from "./uploadSection";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -95,7 +94,7 @@ export default class HomePage extends React.Component {
     var questions = [];
     const len = await this.state.ipfscontract.methods.getQuestionListLength().call({ from: fromAcc });
     var i;
-    this.setState({questions:[]});
+    this.setState({ questions: [] });
     var cont = [];
     for (i = len - 1; i >= 0; i--) {
       const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call({ from: fromAcc });
@@ -106,7 +105,7 @@ export default class HomePage extends React.Component {
       const seconds = new Date().getTime() / 1000;
 
 
-     
+
       var temp = {};
       if (details[1] >= seconds) {
 
@@ -116,35 +115,36 @@ export default class HomePage extends React.Component {
 
         // if (details[3] == "0x0000000000000000000000000000000000000000") {
 
-          const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
-          var max = 0;
+        const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
+        var max = 0;
 
-          var ressolver = "";
-          for (i = 0; i < sollinkslen; i++) {
-            const sol = await this.state.ipfscontract.methods.getSolutionLink(i, ques).call({ from: fromAcc });
-            const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({ from: fromAcc });
-            if (res > max) {
-              max = res;
-              ressolver = sol[1];
-            }
+        var ressolver = "";
+        for (i = 0; i < sollinkslen; i++) {
+          const sol = await this.state.ipfscontract.methods.getSolutionLink(i, ques).call({ from: fromAcc });
+          const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({ from: fromAcc });
+          if (res > max) {
+            max = res;
+            ressolver = sol[1];
           }
+        }
 
-          console.log(ressolver);
+        console.log(ressolver);
         // }
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
 
       }
       console.log(questions);
       questions.push(temp);
-     
+
     }
-   var temp={"address":"0xdda59C23CfDe94b5d2577Df6BB6b801bfD381f3c","question":"Qmc6horV2Yf2oCC2Sti4mkGq1ntL8YJoqdCu8ZGCrfFail","timestamp":"13-06-2020","label":false,"result":"0x402b6ab609703Fdce0D01eD6738eD81A05D66777"};
+    var temp = { "address": "0xdda59C23CfDe94b5d2577Df6BB6b801bfD381f3c", "question": "Qmc6horV2Yf2oCC2Sti4mkGq1ntL8YJoqdCu8ZGCrfFail", "timestamp": "13-06-2020", "label": false, "result": "0x402b6ab609703Fdce0D01eD6738eD81A05D66777" };
     questions.push(temp);
     this.setState({ questions: questions });
     var abc = this.state.finalobj;
     abc.cardofquestion = questions;
     abc.type = this.state.roleValue;
-    this.setState({ finalobj: abc, loader: false, openSnackBar: true, messageSnackBar: "Entries Found" });
+    this.setState({ finalobj: abc, loader: false });
+    // openSnackBar: true, messageSnackBar: "Entries Found"
   }
   constructor(props) {
     super(props);
