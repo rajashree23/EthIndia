@@ -72,7 +72,7 @@ export default class HomePage extends React.Component {
 
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
-    const ipfscontract = new web3.eth.Contract(ipfsABI, "0xb118ea6cf5e2270478d96c1eccb94552d27e37e5")
+    const ipfscontract = new web3.eth.Contract(ipfsABI, "0xa35ab86d2e8a609e8ee044eb6c47aef293e24596")
     this.setState({ ipfscontract })
     const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
     this.setState({ rolescontract })
@@ -344,6 +344,7 @@ export default class HomePage extends React.Component {
                 this.setState({ tranferDialog: false });
                 console.log(this.state.numberOfToken);
                 transTok(this.state.numberOfToken);
+                this.loadBlockchainData()
 
               }}
               color="primary"
