@@ -188,7 +188,7 @@ export default class HomePage extends React.Component {
       var date = today.getDate() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getFullYear();
       this.state.ipfscontract.methods.publisherUploadQues(result[0].hash, this.state.postReward, date).send({ from: this.state.account }).then((r) => {
 
-        return window.location.reload();
+        this.loadBlockchainData();
         // this.setState({})
 
       })
