@@ -47,18 +47,22 @@ contract IPFS {
      mapping(string => quesDetails) questionDetails;
      mapping(string => quesIPFS) questionList;
      mapping(string => solLink)solutionList;
+     mapping(string => mapping(address => bool)) voted;
     
     //Begin
     function agree(string memory sol) public 
     {
+         require(!voted[sol][msg.sender]);
          solutionList[sol].agree.push(msg.sender);
+         voted[sol][msg.sender]=true;
+        
     }
     
     function disagree(string memory sol) public 
     {
-         
+          require(!voted[sol][msg.sender]);
         solutionList[sol].disagree.push(msg.sender);
-        
+        voted[sol][msg.sender]=true;
     }
     //End
 
