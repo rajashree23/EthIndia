@@ -79,15 +79,15 @@ export default class HomePage extends React.Component {
     var account = await web3.eth.getAccounts()
     var fromAcc = account.toString();
     var role = await rolescontract.methods.verifyPublisher().call({ from: fromAcc });
-    if (role === true)
+    if (role)
       this.setState({ roleValue: "Publisher" });
     else {
       role = await this.state.rolescontract.methods.verifyVoter().call({ from: fromAcc });
-      if (role === true)
+      if (role)
         this.setState({ roleValue: "Voter" });
       else {
         role = await this.state.rolescontract.methods.verifySolver().call({ from: fromAcc });
-        if (role === true)
+        if (role)
           this.setState({ roleValue: "Solver" });
       }
     }

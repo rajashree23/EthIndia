@@ -1,8 +1,8 @@
 import React from "react";
-import { regPublisherVerify } from "../js/regPublisher"
-import { regVoterVerify } from "../js/regVoter"
-import { regSolverVerify } from "../js/regSolver"
-
+import  regPublisherVerify  from "../js/regPublisher"
+import  regVoterVerify from "../js/regVoter"
+import  regSolverVerify  from "../js/regSolver"
+import Web3 from "web3";
 import {
   Button,
   IconButton,
@@ -18,12 +18,62 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import SnackBar from "./snackbar";
+import Loader from "./loader";
+import { rolesABI } from "../js/roles";
 import { Redirect } from "react-router-dom";
 export default class MaticPage extends React.Component {
-
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadWeb3()
+    await this.loadBlockchainData()
     this.setState({ openSnackBar: true, messageSnackBar: "Change Network to Matic" });
   }
+  
+
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+    }
+  }
+
+  async loadBlockchainData() {
+
+    const web3 = window.web3
+
+    const accounts = await web3.eth.getAccounts()
+    this.setState({ account: accounts[0], loader: true })
+    
+   
+    const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
+    this.setState({ rolescontract })
+
+    var account = await web3.eth.getAccounts()
+    var fromAcc = account.toString();
+    var role = await rolescontract.methods.verifyPublisher().call({ from: fromAcc });
+    if (role)
+      this.setState({ roleValue: "Publisher" });
+    else {
+      role = await this.state.rolescontract.methods.verifyVoter().call({ from: fromAcc });
+      if (role)
+        this.setState({ roleValue: "Voter" });
+      else {
+        role = await this.state.rolescontract.methods.verifySolver().call({ from: fromAcc });
+        if (role)
+          this.setState({ roleValue: "Solver" });
+      }
+    }
+    this.setState({
+      
+      loader: false})
+   
+  }
+  
 
   constructor(props) {
     super(props);
@@ -33,7 +83,10 @@ export default class MaticPage extends React.Component {
       redirect: "",
       openSnackBar: false,
       messageSnackBar: "",
-
+      account:null,
+      rolescontract: null,
+      loader: true,
+      
     }
   }
 
@@ -41,17 +94,17 @@ export default class MaticPage extends React.Component {
     this.setState({ openSnackBar: true, messageSnackBar: "Confirm transaction and change to ropsten" });
     if (this.state.roleValue === "Publisher") {
       var a = regPublisherVerify();
-      this.setState({ redirect: a })
+      this.loadBlockchainData();
 
     }
 
     else if (this.state.roleValue === "Voter") {
       var a = regVoterVerify();
-      this.setState({ redirect: a })
+      this.loadBlockchainData();
     }
     else if (this.state.roleValue === "Solver") {
       var a = regSolverVerify();
-      this.setState({ redirect: a })
+      this.loadBlockchainData();
 
     }
   }
@@ -61,10 +114,10 @@ export default class MaticPage extends React.Component {
 
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to="/" />;
+     if (this.state.redirect) {
+       return <Redirect to="/" />;
 
-    // }
+     }
     return (
       <div style={{ backgroundColor: "black" }}>
         <Dialog
@@ -110,6 +163,9 @@ export default class MaticPage extends React.Component {
       </Button>
           </DialogActions>
         </Dialog>
+        {this.state.loader &&
+          <Loader />
+        }
         <SnackBar
           open={this.state.openSnackBar}
           message={this.state.messageSnackBar}
