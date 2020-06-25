@@ -143,8 +143,16 @@ export default class HomePage extends React.Component {
     var abc = this.state.finalobj;
     abc.cardofquestion = questions;
     abc.type = this.state.roleValue;
-    this.setState({ finalobj: abc, loader: false });
-    // openSnackBar: true, messageSnackBar: "Entries Found"
+    this.setState({
+      finalobj: abc,
+      loader: false,
+      openSnackBar: true,
+      messageSnackBar: "Entries Found"
+    }, function () {
+      setTimeout(() => {
+        this.setState({ openSnackBar: false })
+      }, 3000)
+    });
   }
   constructor(props) {
     super(props);
@@ -332,7 +340,6 @@ export default class HomePage extends React.Component {
             <Button
               onClick={() => {
                 this.setState({ tranferDialog: false });
-                // this.loadBlockchainData()
               }}
               color="primary"
               variant="outlined"
