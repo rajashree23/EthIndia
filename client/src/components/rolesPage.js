@@ -33,9 +33,11 @@ export default class MaticPage extends React.Component {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
+      window.ethereum.autoRefreshOnNetworkChange = false;
     }
     else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
+      window.ethereum.autoRefreshOnNetworkChange = false;
     }
     else {
       window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
@@ -59,7 +61,7 @@ export default class MaticPage extends React.Component {
     if (role)
     {
       this.setState({ role: "Publisher", loader: false });
-      window.location.reload();
+      // window.location.reload();
     }
       
     
@@ -68,19 +70,19 @@ export default class MaticPage extends React.Component {
       if (role)
       {
         this.setState({ role: "Voter", loader: false });
-        window.location.reload();
+        // window.location.reload();
       }
       else {
         role = await rolescontract.methods.verifySolver().call({ from: fromAcc });
         if (role)
         {
           this.setState({ role: "Solver", loader: false });
-          window.location.reload();
+          // window.location.reload();
         }
       }
       this.setState({loader:false});
 
-      console.log("here"+role);
+      
     }
   
     
