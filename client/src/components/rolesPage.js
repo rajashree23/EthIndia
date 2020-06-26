@@ -57,22 +57,33 @@ export default class MaticPage extends React.Component {
     var fromAcc = account.toString();
     var role = await rolescontract.methods.verifyPublisher().call({ from: fromAcc });
     if (role)
+    {
       this.setState({ role: "Publisher", loader: false });
+      window.location.reload();
+    }
+      
+    
     else {
       role = await rolescontract.methods.verifyVoter().call({ from: fromAcc });
       if (role)
+      {
         this.setState({ role: "Voter", loader: false });
+        window.location.reload();
+      }
       else {
         role = await rolescontract.methods.verifySolver().call({ from: fromAcc });
         if (role)
+        {
           this.setState({ role: "Solver", loader: false });
+          window.location.reload();
+        }
       }
       this.setState({loader:false});
 
       console.log("here"+role);
     }
   
-
+    
   }
 
 
