@@ -1,7 +1,7 @@
 import React from "react";
-import  regPublisherVerify  from "../js/regPublisher"
-import  regVoterVerify from "../js/regVoter"
-import  regSolverVerify  from "../js/regSolver"
+import regPublisherVerify from "../js/regPublisher"
+import regVoterVerify from "../js/regVoter"
+import regSolverVerify from "../js/regSolver"
 import Web3 from "web3";
 import {
   Button,
@@ -27,7 +27,7 @@ export default class MaticPage extends React.Component {
     await this.loadBlockchainData()
     this.setState({ openSnackBar: true, messageSnackBar: "Change Network to Matic" });
   }
-  
+
 
   async loadWeb3() {
     if (window.ethereum) {
@@ -48,8 +48,8 @@ export default class MaticPage extends React.Component {
 
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0], loader: true })
-    
-   
+
+
     const rolescontract = new web3.eth.Contract(rolesABI, "0x5E16F0b5B4eeeb603967278B7ADFe63Fa0F54BAe")
     this.setState({ rolescontract })
 
@@ -57,23 +57,20 @@ export default class MaticPage extends React.Component {
     var fromAcc = account.toString();
     var role = await rolescontract.methods.verifyPublisher().call({ from: fromAcc });
     if (role)
-      this.setState({ roleValue: "Publisher" });
+      this.setState({ role: "Publisher", loader: false });
     else {
       role = await this.state.rolescontract.methods.verifyVoter().call({ from: fromAcc });
       if (role)
-        this.setState({ roleValue: "Voter" });
+        this.setState({ role: "Voter", loader: false });
       else {
         role = await this.state.rolescontract.methods.verifySolver().call({ from: fromAcc });
         if (role)
-          this.setState({ roleValue: "Solver" });
+          this.setState({ role: "Solver", loader: false });
       }
     }
-    this.setState({
-      
-      loader: false})
-   
+
   }
-  
+
 
   constructor(props) {
     super(props);
@@ -83,28 +80,42 @@ export default class MaticPage extends React.Component {
       redirect: "",
       openSnackBar: false,
       messageSnackBar: "",
-      account:null,
+      account: null,
       rolescontract: null,
       loader: true,
-      
+      roles: ""
+
     }
   }
 
   getRoles = () => {
-    this.setState({ openSnackBar: true, messageSnackBar: "Confirm transaction and change to ropsten" });
+    var a = null;
+    this.setState(
+      {
+        openSnackBar: true,
+        messageSnackBar: "Confirm transaction and change to ropsten"
+      }
+    );
     if (this.state.roleValue === "Publisher") {
-      var a = regPublisherVerify();
-      this.loadBlockchainData();
+      a = regPublisherVerify();
+      if (a !== null) {
+        this.loadBlockchainData();
+      }
+
 
     }
 
     else if (this.state.roleValue === "Voter") {
-      var a = regVoterVerify();
-      this.loadBlockchainData();
+      a = regVoterVerify();
+      if (a !== null) {
+        this.loadBlockchainData();
+      }
     }
     else if (this.state.roleValue === "Solver") {
-      var a = regSolverVerify();
-      this.loadBlockchainData();
+      a = regSolverVerify();
+      if (a !== null) {
+        this.loadBlockchainData();
+      }
 
     }
   }
@@ -114,10 +125,10 @@ export default class MaticPage extends React.Component {
 
 
   render() {
-     if (this.state.redirect) {
-       return <Redirect to="/" />;
+    if (this.state.role !== "") {
+      return <Redirect to="/" />;
 
-     }
+    }
     return (
       <div style={{ backgroundColor: "black" }}>
         <Dialog
