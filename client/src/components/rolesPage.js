@@ -59,15 +59,19 @@ export default class MaticPage extends React.Component {
     if (role)
       this.setState({ role: "Publisher", loader: false });
     else {
-      role = await this.state.rolescontract.methods.verifyVoter().call({ from: fromAcc });
+      role = await rolescontract.methods.verifyVoter().call({ from: fromAcc });
       if (role)
         this.setState({ role: "Voter", loader: false });
       else {
-        role = await this.state.rolescontract.methods.verifySolver().call({ from: fromAcc });
+        role = await rolescontract.methods.verifySolver().call({ from: fromAcc });
         if (role)
           this.setState({ role: "Solver", loader: false });
       }
+      this.setState({loader:false});
+
+      console.log("here"+role);
     }
+  
 
   }
 
@@ -81,9 +85,9 @@ export default class MaticPage extends React.Component {
       openSnackBar: false,
       messageSnackBar: "",
       account: null,
-      rolescontract: null,
+     
       loader: true,
-      roles: ""
+      role: ""
 
     }
   }
@@ -125,7 +129,7 @@ export default class MaticPage extends React.Component {
 
 
   render() {
-    if (this.state.role !== "") {
+    if (this.state.role !== "" && this.state.role !== false) {
       return <Redirect to="/" />;
 
     }
