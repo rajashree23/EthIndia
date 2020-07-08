@@ -110,11 +110,13 @@ export default class HomePage extends React.Component {
       console.log("time"+typeof(parseInt((parseInt(details[1])-604800))));
       console.log(parseInt((parseInt(details[1])-604800)));
       console.log(seconds);
-      if (parseInt(details[1]) >= seconds) {
+      temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true ,"result":"" };
+      console.log(temp);
+      if (parseInt(details[1]) <= seconds) {
 
-        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
-      }
-      else {
+      //   temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
+      // }
+      // else {
 
        if (details[3] == "0x0000000000000000000000000000000000000000") {
 
@@ -144,7 +146,8 @@ export default class HomePage extends React.Component {
       }
         console.log(ressolver);
          }
-        temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
+         temp.result=ressolver;
+        //temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
 
       }
       console.log(questions);
