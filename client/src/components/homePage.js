@@ -107,7 +107,10 @@ export default class HomePage extends React.Component {
 
 
       var temp = {};
-      if (details[1] >= seconds) {
+      console.log("time"+typeof(parseInt((parseInt(details[1])-604800))));
+      console.log(parseInt((parseInt(details[1])-604800)));
+      console.log(seconds);
+      if (parseInt(details[1]) >= seconds) {
 
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
       }
