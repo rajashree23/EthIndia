@@ -96,7 +96,10 @@ export default class HomePage extends React.Component {
     var i;
     this.setState({ questions: [] });
     var cont = [];
+    console.log(len);
+    // var temp = {};
     for (i = len - 1; i >= 0; i--) {
+      console.log("line no 102")
       const ques = await this.state.ipfscontract.methods.getQuestionKey(i).call({ from: fromAcc });
 
 
@@ -107,55 +110,53 @@ export default class HomePage extends React.Component {
 
 
       var temp = {};
-      console.log("time"+typeof(parseInt((parseInt(details[1])-604800))));
-      console.log(parseInt((parseInt(details[1])-604800)));
-      console.log(seconds);
-      temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true ,"result":"" };
-      console.log(temp);
+
+      temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true, "result": "" };
+
       if (parseInt(details[1]) <= seconds) {
 
-      //   temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": true }
-      // }
-      // else {
+        console.log("Line no 123");
+        if (details[3] == "0x0000000000000000000000000000000000000000") {
+          var j;
+          const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
+          var max = 0;
 
-       if (details[3] == "0x0000000000000000000000000000000000000000") {
-
-        const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
-        var max = 0;
-        //console.log("len"+sollinkslen);
-        var ressolver = "0x0000000000000000000000000000000000000000";
-        for (i = 0; i < sollinkslen; i++) {
-          const sol = await this.state.ipfscontract.methods.getSolutionLink(i, ques).call({ from: fromAcc });
-          const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({ from: fromAcc });
-          if (res > max) {
-            max = res;
-            ressolver = sol[1];
+          var ressolver = "0x0000000000000000000000000000000000000000";
+          for (j = 0; j < sollinkslen; j++) {
+            const sol = await this.state.ipfscontract.methods.getSolutionLink(j, ques).call({ from: fromAcc });
+            const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({ from: fromAcc });
+            if (res > max) {
+              max = res;
+              ressolver = sol[1];
+            }
           }
-        }
-        console.log("hello");
-        console.log(ressolver);
-        if(ressolver != "0x0000000000000000000000000000000000000000")
-        {
-        this.state.ipfscontract.methods.setResult(ques,ressolver).send({ from:details[0] }).then((r) => {
 
-          this.loadBlockchainData();
-          // this.setState({})
+        
+          if (ressolver != "0x0000000000000000000000000000000000000000") {
+            this.state.ipfscontract.methods.setResult(ques, ressolver).send({ from: details[0] }).then((r) => {
+
+              this.loadBlockchainData();
+
+
+
+            })
+          }
           
-  
-        })
-      }
-        console.log(ressolver);
-         }
-         temp.result=ressolver;
-        //temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
+          temp.result = ressolver;
+          temp.label = false;
+        }
+        temp.result = details[3];
+        temp.label = false;
+       
 
       }
-      console.log(questions);
+
       questions.push(temp);
+      
 
     }
-    var temp = { "address": "0xdda59C23CfDe94b5d2577Df6BB6b801bfD381f3c", "question": "Qmc6horV2Yf2oCC2Sti4mkGq1ntL8YJoqdCu8ZGCrfFail", "timestamp": "13-06-2020", "label": false, "result": "0x402b6ab609703Fdce0D01eD6738eD81A05D66777" };
-    questions.push(temp);
+    // var temp = { "address": "0xdda59C23CfDe94b5d2577Df6BB6b801bfD381f3c", "question": "Qmc6horV2Yf2oCC2Sti4mkGq1ntL8YJoqdCu8ZGCrfFail", "timestamp": "13-06-2020", "label": false, "result": "0x402b6ab609703Fdce0D01eD6738eD81A05D66777" };
+    // questions.push(temp);
     this.setState({ questions: questions });
     var abc = this.state.finalobj;
     abc.cardofquestion = questions;
@@ -227,7 +228,7 @@ export default class HomePage extends React.Component {
 
   }
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <div >

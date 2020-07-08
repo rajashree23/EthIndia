@@ -97,7 +97,7 @@ export default class QuestionsCard extends React.Component {
 
 
   render() {
-    console.log(this.props.data.questions);
+    // console.log(this.props.data.questions);
     return (
       <Card raised={true} style={{ borderRadius: 10 }} >
         <CardContent>
