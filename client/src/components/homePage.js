@@ -113,7 +113,7 @@ export default class HomePage extends React.Component {
       }
       else {
 
-        // if (details[3] == "0x0000000000000000000000000000000000000000") {
+       if (details[3] == "0x0000000000000000000000000000000000000000") {
 
         const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
         var max = 0;
@@ -127,9 +127,15 @@ export default class HomePage extends React.Component {
             ressolver = sol[1];
           }
         }
+        this.state.ipfscontract.methods.setResult(ques,ressolver).send({ from:fromAcc }).then((r) => {
 
+          this.loadBlockchainData();
+          // this.setState({})
+          
+  
+        })
         console.log(ressolver);
-        // }
+         }
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
 
       }
@@ -198,6 +204,7 @@ export default class HomePage extends React.Component {
 
         this.loadBlockchainData();
         // this.setState({})
+
 
       })
       if (error)
