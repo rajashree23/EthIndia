@@ -117,8 +117,8 @@ export default class HomePage extends React.Component {
 
         const sollinkslen = await this.state.ipfscontract.methods.getSolverSolutionLinks(ques).call({ from: fromAcc });
         var max = 0;
-
-        var ressolver = "";
+        //console.log("len"+sollinkslen);
+        var ressolver = "0x0000000000000000000000000000000000000000";
         for (i = 0; i < sollinkslen; i++) {
           const sol = await this.state.ipfscontract.methods.getSolutionLink(i, ques).call({ from: fromAcc });
           const res = await this.state.ipfscontract.methods.getAccuracy(sol[0]).call({ from: fromAcc });
@@ -127,13 +127,18 @@ export default class HomePage extends React.Component {
             ressolver = sol[1];
           }
         }
-        this.state.ipfscontract.methods.setResult(ques,ressolver).send({ from:fromAcc }).then((r) => {
+        console.log("hello");
+        console.log(ressolver);
+        if(ressolver != "0x0000000000000000000000000000000000000000")
+        {
+        this.state.ipfscontract.methods.setResult(ques,ressolver).send({ from:details[0] }).then((r) => {
 
           this.loadBlockchainData();
           // this.setState({})
           
   
         })
+      }
         console.log(ressolver);
          }
         temp = { "address": details[0], "question": ques, "timestamp": details[2], "label": false, "result": ressolver }
