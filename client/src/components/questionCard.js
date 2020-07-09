@@ -61,7 +61,8 @@ export default class QuestionsCard extends React.Component {
       ethFiddleLink: "",
       ipfscontract: null,
       web3: null,
-      account: null
+      account: null,
+      fileUploaded: null
     }
   }
   captureFile = (event) => {
@@ -70,7 +71,7 @@ export default class QuestionsCard extends React.Component {
     const reader = new window.FileReader()
     reader.readAsArrayBuffer(file)
     reader.onloadend = () => {
-      this.setState({ buffer: Buffer(reader.result) })
+      this.setState({ buffer: Buffer(reader.result), fileUploaded: file })
     }
   }
 
@@ -223,6 +224,7 @@ export default class QuestionsCard extends React.Component {
               Close
           </Button>
             <Button
+              disabled={this.state.ethFiddleLink === "" || this.state.fileUploaded === null ? true : false}
               onClick={() => {
 
                 this.setState({ solveDialog: false });

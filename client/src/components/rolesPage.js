@@ -25,7 +25,12 @@ export default class MaticPage extends React.Component {
   async componentDidMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
-    this.setState({ openSnackBar: true, messageSnackBar: "Change Network to Matic" });
+    this.setState({ openSnackBar: true, messageSnackBar: "Change Network to Matic" },
+    function () {
+      setTimeout(() => {
+        this.setState({ openSnackBar: false })
+      }, 3000)
+    });
   }
 
 
