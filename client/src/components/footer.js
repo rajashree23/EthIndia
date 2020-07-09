@@ -95,7 +95,7 @@ export default class Footer extends React.Component {
                 <ListItemText
                   primary={
                     <Typography style={{ color: "white" }} variant="title"  >
-                      {"your@gmail.com"}
+                      {"chainwhiz@gmail.com"}
                     </Typography>
                   }
                 />
@@ -123,7 +123,7 @@ export default class Footer extends React.Component {
             <SocialMediaIconsReact iconSize={5} icon="twitter" url=""/>
             &nbsp;
             &nbsp;
-            <SocialMediaIconsReact iconSize={5} icon="youtube" url=""/>
+            <SocialMediaIconsReact iconSize={5} icon="youtube" url="https://www.youtube.com/watch?v=GyN9o1ZhN5M"/>
             </div>
 
 
